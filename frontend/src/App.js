@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import './App.css';
-import LoginPage from './Components/Login/LoginPage';
-import UserProfilePage from './Components/UserProfile/UserProfilePage';
+// import LoginPage from './Components/Login/LoginPage';
+// import UserProfilePage from './Components/UserProfile/UserProfilePage';
+import { BrowserRouter as Router } from 'react-router-dom';
+import RouterConfig from './RouterConfig';
 
 function App() {
   const adminUser = {
@@ -31,13 +33,16 @@ function App() {
   }
 
   return (
-    <div>
-      {(user.username != "") ? (
-        <UserProfilePage username={user.username} Logout={Logout}/>
-      ) : (
-        <LoginPage Login={Login} error={error}/>
-      )}
-    </div>
+    // <div>
+    //   {(user.username != "") ? (
+    //     <UserProfilePage username={user.username} Logout={Logout}/>
+    //   ) : (
+    //     <LoginPage Login={Login} error={error}/>
+    //   )}
+    // </div>
+    <Router>
+        <RouterConfig />
+    </Router>
   );
 }
 

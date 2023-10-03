@@ -1,15 +1,33 @@
 import React, {useState} from 'react'
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './LoginPage.css'
 
 
-const LoginPage = ({ Login, error }) => {
-
+// const LoginPage = ({ Login, error }) => {
+const LoginPage = () => {
     const [details, setDetails] = useState({username: "", password: ""});
-
-    const LoginHandler = e => {
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
+    console.log("login page")
+    const LoginHandler = async (e) => {
         e.preventDefault();
+        try {
+            const apiEndpoint = "http://127.0.0.1:5000/auth/login";
+            const response = await axios.post(apiEndpoint, details);
+            if (response.data.status === "success") {
+                // 登录成功的逻辑，例如重定向到主页
+                navigate('/profile');
+            } else {
+                // 从后端获取错误消息并设置
+                setError(response.data.message);
+            }
+        } catch (err) {
+            // 一般的错误处理，例如网络错误或服务器错误
+            setError("Failed to login. Please try again.");
+        }
+        // Login(details);
 
-        Login(details);
     }
     
     return (
