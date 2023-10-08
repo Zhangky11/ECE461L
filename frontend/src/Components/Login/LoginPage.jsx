@@ -34,7 +34,7 @@ const LoginPage = () => {
     }
     
     return (
-        <div>
+        <div className='wrapper'>
             <div className='bar'>
                 <div className='bar-text'>ECE461L PROJECT</div>
             </div>

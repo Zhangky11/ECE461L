@@ -1,0 +1,15 @@
+.username {
+    color: #ffffff;
+    font-size: 25px;
+    font-weight: 500;
+    font-family: 'BebasNeue', sans-serif;
+    margin-right: 25px;
+    margin-top: 25px;
+}
+
+.project-table-container {
+    background: #f3dddd;
+    width: 1000px;
+    margin: auto;
+}
+

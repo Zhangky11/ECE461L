@@ -11,9 +11,6 @@ function App() {
 
   const [user, setUser] = useState("")
 
-  const setUsername = (username) => {
-    setUser(username)
-  }
 
   return (
     // <div>

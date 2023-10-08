@@ -1,10 +1,9 @@
 .bar{
     display:flex;
-    position:relative;
     margin-top: 0px;
     background: #242424;
     height: 80px;
-    margin: auto;
+    justify-content:space-between;
 }
 
 .bar-text {
