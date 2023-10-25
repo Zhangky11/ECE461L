@@ -27,8 +27,16 @@ def register():
         return jsonify({"message": "Username already exists"}), 400
     
     user = User(username=data['username'], joined_projects=data['joined_projects'])
+    # project1 = Project(name="project1",description='de').save()
+    # project2 = Project(name="project2",description='de').save()
+    # project3 = Project(name="project3",description='de').save()
+    # user = User(username=data['username'])
+    # user.joined_projects.append(project1)
+    # user.joined_projects.append(project2)
+    # user.joined_projects.append(project3)
     user.set_password(data['password'])
     user.save()
+    
 
     data = {}
     data['username'] = 'Tim'
@@ -66,14 +74,11 @@ def login():
     data['password'] = 'pass'
 
     user = User.objects(username=data['username']).first()
-
     if not user or not user.check_password(data['password']):
         return jsonify({"message": "Invalid username or password"}), 401
 
-    # session['user_id'] = str(user.id)  # use session to save userid
-    print(user.username)
-    print(user.password_hash)
-    return jsonify({"message": "Logged in successfully"}), 200
+    #session['user_id'] = str(user.id)
+    return jsonify({"username": data['username'],'projects':user.associated_projects()}), 200
 
 @auth.route('/logout')
 def logout():
