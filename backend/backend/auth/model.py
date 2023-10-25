@@ -3,7 +3,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from backend import db
 from backend.api.project.model import Project
 from backend.shared.hardware_pool import HardwarePool
-from mongoengine import Document, ReferenceField
+from mongoengine import Document, ReferenceField,ListField
+from flask import jsonify
 
 #class Pet(db.Document):
     #name = db.StringField(unique=True, required=True)
@@ -13,7 +14,7 @@ class User(db.Document):
     username = db.StringField(unique=True, required=True)
     #email = db.EmailField()
     password_hash = db.StringField(required=True)
-    joined_projects = ReferenceField(Project)
+    joined_projects = ListField(ReferenceField(Project))
     
 
     #pets = db.ReferenceField('Pet')
@@ -23,5 +24,18 @@ class User(db.Document):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+    
+    def associated_projects(self):
+        projects = self.joined_projects
+        project_list = []
+        for project in projects:
+            project_info = {
+                'name' :project.name,
+                'description':project.description
+            }
+            project_list.append(project_info)
+        
+        return project_list
+    
     
     

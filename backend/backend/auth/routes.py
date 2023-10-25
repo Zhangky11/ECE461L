@@ -10,9 +10,9 @@ def register():
     # if not data or 'username' not in data or 'password' not in data or 'email' not in data:
     #     return jsonify({"message": "Invalid input"}), 400
     data = {}
-    data['username'] = 'Jame'
+    data['username'] = 'jeff'
     data['password'] = 'pass'
-    data['Project'] = 'Project5'
+    
     #data['email'] = '46@gmail.com'
 
     if User.objects(username=data['username']).first():
@@ -20,16 +20,17 @@ def register():
 
     #user = User(username=data['username'], email=data['email'])
     
-    project = Project(name=data['Project'], description = "First Project")
-    project.save()
-    print("Project created")
-    user = User(username=data['username'],joined_projects = project)
-    print("Project added")
-    project_name = user.joined_projects.name
-    print(project_name)
+    project1 = Project(name="project1",description='de').save()
+    project2 = Project(name="project2",description='de').save()
+    project3 = Project(name="project3",description='de').save()
+    user = User(username=data['username'])
+    user.joined_projects.append(project1)
+    user.joined_projects.append(project2)
+    user.joined_projects.append(project3)
     user.set_password(data['password'])
     
     user.save()
+    
 
     return jsonify({"message": "User registered successfully"}), 201
 
@@ -42,7 +43,7 @@ def login():
     
     # print(username)
     # print(password)
-    # # Connect to DB
+    # Connect to DB
     # if username == "admin" and password == "password":
     #     return jsonify({"status": "success", "message": "Login successful"}), 200
     # else:
@@ -53,17 +54,21 @@ def login():
     #     return jsonify({"message": "Invalid input"}), 400
 
     data = {}
-    data['username'] = 'Kyrie'
-    data['password'] = 'passwor'
+    data['username'] = 'jeff'
+    data['password'] = 'pass'
+
+    #test
+
 
     user = User.objects(username=data['username']).first()
-
     if not user or not user.check_password(data['password']):
         return jsonify({"message": "Invalid username or password"}), 401
+    print(user)
+    
 
-    session['user_id'] = str(user.id)  # 使用 Flask 的 session 保存用户 ID
-
-    return jsonify({"message": "Logged in successfully"}), 200
+    #session['user_id'] = str(user.id)  # 使用 Flask 的 session 保存用户 ID
+    
+    return jsonify({"username": data['username'],'projects':user.associated_projects()}), 200
 
 @auth.route('/logout')
 def logout():
