@@ -1,5 +1,7 @@
 #from backend.auth.model import User
+from backend.api.hardware.model import HwSet
 from flask_mongoengine import MongoEngine
+from mongoengine import Document, ReferenceField,ListField
 from backend import db
 
 
@@ -13,6 +15,7 @@ class Project(db.Document):
     name = db.StringField(unique=True,required=True)   
     description = db.StringField(required=True)
     member_list = db.ListField()
+    joined_hwsets = ListField(ReferenceField(HwSet), default=list)
 
     @classmethod
     def get_next_sequence(cls):

@@ -14,6 +14,7 @@ def create_proj():
     # data = request.get_json()
     data = {}
     data['username'] = 'Jame'
+    
 
     if not User.objects(username=data['username']).first():
         return jsonify({"message": "User doesn't exists"}), 400
@@ -22,16 +23,18 @@ def create_proj():
 
     data['project_name'] = "Jame's Project 1"
     data['project_description'] = "This is Jame's Project 1"
+    data['HwSet'] = []
 
-    project1 = Project(name=data['project_name'], description=data['project_description'])
+    project1 = Project(name=data['project_name'], description=data['project_description'], joined_hwsets = data['HwSet'])
     project1.member_list.append(user.username)
     project1.id_inc = Project.get_next_sequence()
     project1.save()
 
     data['project_name'] = "Jame's Project 2"
     data['project_description'] = "This is Jame's Project 2"
+    data['HwSet'] = []
 
-    project2 = Project(name=data['project_name'], description=data['project_description'])
+    project2 = Project(name=data['project_name'], description=data['project_description'], joined_hwsets = data['HwSet'])
     project2.member_list.append(user.username)
     project2.id_inc = Project.get_next_sequence()
     project2.save()

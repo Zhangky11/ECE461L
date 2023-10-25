@@ -3,9 +3,17 @@ auth = Blueprint('auth', __name__)
 
 from .model import User
 from backend.api.project.model import Project, Sequence
+from backend.api.hardware.model import HwSet
+from backend.shared.hardware_pool import HardwarePool
 
 @auth.route('/register', methods=['POST', 'GET'])
 def register():
+    HardwarePool.objects().delete()
+    hwpool1 = HardwarePool(name="HW 1", total_capacity=100, available_capacity=100)
+    hwpool2 = HardwarePool(name="HW 2", total_capacity=200, available_capacity=200)
+    hwpool1.save()
+    hwpool2.save()
+
     # data = request.get_json()
     # if not data or 'username' not in data or 'password' not in data or 'email' not in data:
     #     return jsonify({"message": "Invalid input"}), 400
@@ -19,6 +27,7 @@ def register():
     User.objects().delete()
     Sequence.objects().delete()
     Project.objects().delete()
+    HwSet.objects().delete()
 
     if data['password'] != data['confirm_password']:
         return jsonify({"message": "Password doesn't match"}), 400
