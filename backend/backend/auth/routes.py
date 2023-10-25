@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify, session
 auth = Blueprint('auth', __name__)
 
 from .model import User
+from backend.api.project.model import Project
 
 @auth.route('/register', methods=['POST', 'GET'])
 def register():
@@ -9,15 +10,25 @@ def register():
     # if not data or 'username' not in data or 'password' not in data or 'email' not in data:
     #     return jsonify({"message": "Invalid input"}), 400
     data = {}
-    data['username'] = 'Kyrie'
-    data['password'] = 'password'
-    data['email'] = '123@gmail.com'
+    data['username'] = 'Jame'
+    data['password'] = 'pass'
+    data['Project'] = 'Project5'
+    #data['email'] = '46@gmail.com'
 
     if User.objects(username=data['username']).first():
         return jsonify({"message": "Username already exists"}), 400
 
-    user = User(username=data['username'], email=data['email'])
+    #user = User(username=data['username'], email=data['email'])
+    
+    project = Project(name=data['Project'], description = "First Project")
+    project.save()
+    print("Project created")
+    user = User(username=data['username'],joined_projects = project)
+    print("Project added")
+    project_name = user.joined_projects.name
+    print(project_name)
     user.set_password(data['password'])
+    
     user.save()
 
     return jsonify({"message": "User registered successfully"}), 201
