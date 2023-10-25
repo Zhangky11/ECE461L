@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify, session
 auth = Blueprint('auth', __name__)
 
 from .model import User
-from backend.api.project.model import Project
+from backend.api.project.model import Project, Sequence
 
 @auth.route('/register', methods=['POST', 'GET'])
 def register():
@@ -12,57 +12,67 @@ def register():
     data = {}
     data['username'] = 'Jame'
     data['password'] = 'pass'
-    data['Project'] = 'Project5'
-    #data['email'] = '46@gmail.com'
+    data['confirm_password'] = 'pass'
+    data['joined_projects'] = []
+
+    # For test use, remember to delete these two lines when deploying
+    User.objects().delete()
+    Sequence.objects().delete()
+    Project.objects().delete()
+
+    if data['password'] != data['confirm_password']:
+        return jsonify({"message": "Password doesn't match"}), 400
 
     if User.objects(username=data['username']).first():
         return jsonify({"message": "Username already exists"}), 400
-
-    #user = User(username=data['username'], email=data['email'])
     
-    project = Project(name=data['Project'], description = "First Project")
-    project.save()
-    print("Project created")
-    user = User(username=data['username'],joined_projects = project)
-    print("Project added")
-    project_name = user.joined_projects.name
-    print(project_name)
+    user = User(username=data['username'], joined_projects=data['joined_projects'])
     user.set_password(data['password'])
-    
     user.save()
 
+    data = {}
+    data['username'] = 'Tim'
+    data['password'] = 'pass'
+    data['confirm_password'] = 'pass'
+    data['joined_projects'] = []
+
+    if data['password'] != data['confirm_password']:
+        return jsonify({"message": "Password doesn't match"}), 400
+
+    if User.objects(username=data['username']).first():
+        return jsonify({"message": "Username already exists"}), 400
+    
+    user = User(username=data['username'], joined_projects=data['joined_projects'])
+    user.set_password(data['password'])
+    user.save()
     return jsonify({"message": "User registered successfully"}), 201
 
 @auth.route('/login', methods=['POST', 'GET'])
 def login():
     print("Login Request!")
-    # data = request.json
+    # data = request.get_json()
     # username = data.get('username')
     # password = data.get('password')
     
     # print(username)
     # print(password)
     # # Connect to DB
-    # if username == "admin" and password == "password":
-    #     return jsonify({"status": "success", "message": "Login successful"}), 200
-    # else:
-    #     return jsonify({"status": "error", "message": "Invalid credentials"}), 401
-    
     # data = request.get_json()
     # if not data or 'username' not in data or 'password' not in data:
     #     return jsonify({"message": "Invalid input"}), 400
 
     data = {}
-    data['username'] = 'Kyrie'
-    data['password'] = 'passwor'
+    data['username'] = 'Jame'
+    data['password'] = 'pass'
 
     user = User.objects(username=data['username']).first()
 
     if not user or not user.check_password(data['password']):
         return jsonify({"message": "Invalid username or password"}), 401
 
-    session['user_id'] = str(user.id)  # 使用 Flask 的 session 保存用户 ID
-
+    # session['user_id'] = str(user.id)  # use session to save userid
+    print(user.username)
+    print(user.password_hash)
     return jsonify({"message": "Logged in successfully"}), 200
 
 @auth.route('/logout')

@@ -3,7 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from backend import db
 from backend.api.project.model import Project
 from backend.shared.hardware_pool import HardwarePool
-from mongoengine import Document, ReferenceField
+from mongoengine import Document, ReferenceField, ListField
 
 #class Pet(db.Document):
     #name = db.StringField(unique=True, required=True)
@@ -13,7 +13,7 @@ class User(db.Document):
     username = db.StringField(unique=True, required=True)
     #email = db.EmailField()
     password_hash = db.StringField(required=True)
-    joined_projects = ReferenceField(Project)
+    joined_projects = ListField(ReferenceField(Project), default=list)
     
 
     #pets = db.ReferenceField('Pet')
