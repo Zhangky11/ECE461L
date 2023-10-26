@@ -22,10 +22,6 @@ const UserProfilePage = () => {
     navigate('/login');
   }
 
-  const ProjectDetailHandler = (projectName) => {
-    console.log(projectName)
-    navigate('/details/' + projectName)
-  }
   return (
     <div>
         <div className='bar'>
@@ -41,7 +37,7 @@ const UserProfilePage = () => {
             </tr>
             <tr className='table-rows'>
               <td>{exampleProject.id}</td>
-              <td><Link to={`/projects/${exampleProject.name}`}>{exampleProject.name}</Link></td>
+              <td><Link to={`/projects/${exampleProject.id}`}>{exampleProject.name}</Link></td>
             </tr>
             
           </table>

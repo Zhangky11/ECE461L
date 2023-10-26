@@ -10,7 +10,7 @@ const RouterConfig = () => {
         <Routes>
             <Route path="/login" element={<LoginPage />} />
             <Route path="/profile" element={<UserProfilePage />} />
-            <Route path="/projects/:projectName" element={<ProjectDetails/>} />
+            <Route path="/projects/:id" element={<ProjectDetails/>} />
         </Routes>
     );
 }
