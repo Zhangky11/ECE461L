@@ -13,7 +13,16 @@ const Message = () => {
     return (
     <>
         {modal && (
-            <h1>PlaceHolder</h1>
+            <div className='modal'>
+                <div onClick={toggleModal} className="overlay"></div>
+                <div className='content'>
+                    <h2>Success!</h2>
+                    <h3>Request was processed</h3>
+                    <button className="close" onClick={toggleModal}>
+                        OK
+                    </button>
+                </div>
+            </div>
         )}
     </>
     );
