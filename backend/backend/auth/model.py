@@ -32,7 +32,8 @@ class User(db.Document):
             project_info = {
                 'name' :project.name,
                 'description': project.description,
-                'id' :project.id_inc
+                'id' :project.id_inc,
+                'member_list' : project.member_list,
             }
             project_list.append(project_info)
         

@@ -8,9 +8,10 @@ from backend.shared.hardware_pool import HardwarePool
 
 @auth.route('/register', methods=['POST', 'GET'])
 def register():
+# def register(request):
     HardwarePool.objects().delete()
-    hwpool1 = HardwarePool(name="HW 1", total_capacity=100, available_capacity=100)
-    hwpool2 = HardwarePool(name="HW 2", total_capacity=200, available_capacity=200)
+    hwpool1 = HardwarePool(name="HW 1", total_capacity=100, total_availability=100)
+    hwpool2 = HardwarePool(name="HW 2", total_capacity=200, total_availability=200)
     hwpool1.save()
     hwpool2.save()
 
@@ -66,15 +67,11 @@ def register():
 
 @auth.route('/login', methods=['POST', 'GET'])
 def login():
+# def login(request):
     print("Login Request!")
     # data = request.get_json()
     # username = data.get('username')
     # password = data.get('password')
-    
-    # print(username)
-    # print(password)
-    # # Connect to DB
-    # data = request.get_json()
     # if not data or 'username' not in data or 'password' not in data:
     #     return jsonify({"message": "Invalid input"}), 400
 

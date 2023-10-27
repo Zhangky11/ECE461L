@@ -5,6 +5,7 @@ from flask import Blueprint, jsonify
 hardware_bp = Blueprint('hardware_bp', __name__)
 @hardware_bp.route('/request_hw', methods=['POST','GET'])
 def request_hw():
+# def request_hw(request):
     print("Request Hardware!")
     # data = request.get_json()
     data = {}
@@ -23,10 +24,15 @@ def request_hw():
     
     hw_from_pool = HardwarePool.objects(name=data['hw_name']).first()
     if hw_from_pool.request_hardware(data['hw_amount']):
-        hardware1 = HwSet(hw_name=data['hw_name'], hw_amount=data['hw_amount'], hardware_from_pool=hw_from_pool)
-        hardware1.save()
-        project.joined_hwsets.append(hardware1)
-        project.save()
+
+        if not HwSet.objects(hw_name=data['hw_name']).first():
+            hardware1 = HwSet(hw_name=data['hw_name'], hw_amount=data['hw_amount'], hardware_from_pool=hw_from_pool)
+            hardware1.save()
+            project.joined_hwsets.append(hardware1)
+            project.save()
+        else:
+            hardware1 = HwSet.objects(hw_name=data['hw_name']).first()
+            hardware1.add_hardware(data['hw_amount'])
     else:
         return jsonify({"message": "Not enough HW!"}), 400
 

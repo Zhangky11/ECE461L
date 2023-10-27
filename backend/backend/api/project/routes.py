@@ -7,10 +7,29 @@ from backend import db
 
 project_bp = Blueprint('project_bp', __name__)
 
+@project_bp.route('/display_proj', methods=['POST', 'GET'])
+
+def display_proj():
+# def display_proj(request):
+    print("Display Project Request!")
+    # data = request.get_json()
+    data = {}
+    data['username'] = 'Jame'
+    data['project_id'] = 1
+    if not Project.objects(id_inc=data['project_id']).first():
+        return jsonify({"message": "Project doesn't exists"}), 400
+    project = Project.objects(id_inc=data['project_id']).first()
+
+    return_dict = {"project_id": project.id_inc, 
+                   'project_discription': project.description,
+                   "project_member_list": project.member_list, 
+                   "Hardware_list": project.associated_hardwares()}
+    return jsonify(return_dict), 200
+
 @project_bp.route('/create_proj', methods=['POST', 'GET'])
 def create_proj():
+# def create_proj(request):
     print("Create Project Request!")
-    # Project.objects().delete()
     # data = request.get_json()
     data = {}
     data['username'] = 'Jame'
@@ -57,8 +76,8 @@ def create_proj():
 
 @project_bp.route('/join_proj', methods=['POST', 'GET'])
 def join_proj():
+# def join_proj(request):
     print("Join Project Request!")
-    # Project.objects().delete()
     # data = request.get_json()
     data = {}
     data['username'] = 'Tim'
