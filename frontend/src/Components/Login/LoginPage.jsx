@@ -1,11 +1,13 @@
-import React, {useState} from 'react'
+import React, {useContext, useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './LoginPage.css'
+import { UserContext } from '../../App';
 
 
 // const LoginPage = ({ Login, error }) => {
 const LoginPage = () => {
+    const [user, setUser] = useContext(UserContext)
     const [details, setDetails] = useState({username: "", password: ""});
     const [error, setError] = useState('');
     const navigate = useNavigate();
@@ -16,6 +18,8 @@ const LoginPage = () => {
             const apiEndpoint = "http://127.0.0.1:5000/auth/login";
             const response = await axios.post(apiEndpoint, details);
             if (response.data.status === "success") {
+                // 登录成功的逻辑，例如重定向到主页
+                setUser(details.username)
                 navigate('/profile');
             } else {
                 // 从后端获取错误消息并设置
@@ -31,7 +35,7 @@ const LoginPage = () => {
     }
     
     return (
-        <div>
+        <div className='wrapper'>
             <div className='bar'>
                 <div className='bar-text'>ECE461L PROJECT</div>
             </div>

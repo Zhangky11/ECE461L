@@ -1,36 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, createContext } from 'react';
 import './App.css';
 // import LoginPage from './Components/Login/LoginPage';
 // import UserProfilePage from './Components/UserProfile/UserProfilePage';
 import { BrowserRouter as Router } from 'react-router-dom';
 import RouterConfig from './RouterConfig';
 
+export const UserContext = createContext();
+
 function App() {
-  const adminUser = {
-    username: "admin",
-    password: "admin123"
-  }
-  const [user, setUser] = useState({username: ""})
-  const [error, setError] = useState("");
 
-  const Login = details => {
-    console.log(details);
+  const [user, setUser] = useState("")
 
-    if (details.username == adminUser.username && details.password == adminUser.password) {
-      console.log("Logged in");
-      setUser({
-        username: details.username
-      });
-      setError("");
-    } else {
-      console.log("Incorrect username or password");
-      setError("Incorrect username or password")
-    }
-  }
-
-  const Logout = () => {
-    setUser({ username: "" });
-  }
 
   return (
     // <div>
@@ -40,9 +20,11 @@ function App() {
     //     <LoginPage Login={Login} error={error}/>
     //   )}
     // </div>
-    <Router>
+    <UserContext.Provider value={[user, setUser]}>
+      <Router>
         <RouterConfig />
-    </Router>
+      </Router>
+    </UserContext.Provider>
   );
 }
 

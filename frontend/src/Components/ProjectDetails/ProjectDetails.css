@@ -19,12 +19,24 @@
     display: flex;
     flex-direction: column;
     margin: auto;
-    margin-top: 200px;
+    margin-top: 3vh;
+    background: #f8f8f8;
+    padding: 3vh;
+    width: 60vw;
+}
+.body {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 2vh;
     background: #d6e8fc;
-    padding-bottom: 30px;
-    width: 600px;
+    padding: 1vh 1vw;
+    width: 56vw;   
 }
 
+.projectFeature {
+    margin-bottom: 1vw;
+}
 .header {
     display: flex;
     flex-direction: column;
@@ -107,3 +119,4 @@
     font-weight: 400;
     margin:auto;
 }
+
