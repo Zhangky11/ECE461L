@@ -33,6 +33,9 @@ const LoginPage = () => {
         // Login(details);
 
     }
+    const SignUpHandler = e => {
+        navigate('/register');
+    }
     
     return (
         <div className='wrapper'>
@@ -59,7 +62,7 @@ const LoginPage = () => {
                 </div>
                 <div className='button-container'>
                     <div className='button' onClick={LoginHandler}>Log In</div>
-                    <div className='button'>Sign Up</div>
+                    <div className='button' onClick={SignUpHandler}>Sign Up</div>
                 </div>
                 {(error != "") ? (
                     <div className='error-text'>{error}</div>
