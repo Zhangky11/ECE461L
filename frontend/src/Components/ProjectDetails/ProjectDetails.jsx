@@ -1,6 +1,8 @@
 import React, {useContext, useState} from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+// import HardwareSet from './HardwareSet/HardwareSet'
+import HardwareSet from './Hardware/HardwareSet'
 import './ProjectDetails.css'
 import { UserContext } from '../../App';
 
@@ -30,9 +32,9 @@ const ProjectDetails = () => {
                 <div className='bar-text'>ECE461L PROJECT</div>
                 <div className='username'>{user}</div>
             </div>
-            <div className='container'>
+            <div className='project-container'>
                 <div className='text'>{exampleProject.name}</div>
-                <div className='body'>
+                <div className='project-body'>
                     <div className='projectFeature'>
                         <b>Description: </b> {exampleProject.details}
                     </div>
@@ -44,8 +46,15 @@ const ProjectDetails = () => {
                             ))}
                         </ul>
                     </div>
-                    
-                    
+                </div>
+                <br/>
+                <div className='text'>Hardware Sets</div>
+                <div className='project-body'>
+                    <div className='hardware-area'>
+                        <HardwareSet name="Hardware Set 1" capacity='100'/>
+                        <HardwareSet name="Hardware Set 2" capacity='200'/>
+                        <HardwareSet name="Hardware Set 3" capacity='150'/>
+                    </div>
                 </div>
             </div>
             

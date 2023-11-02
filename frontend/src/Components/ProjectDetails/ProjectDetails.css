@@ -15,7 +15,7 @@
     margin-left:20px;
 }
 
-.container {
+.project-container {
     display: flex;
     flex-direction: column;
     margin: auto;
@@ -24,7 +24,7 @@
     padding: 3vh;
     width: 60vw;
 }
-.body {
+.project-body {
     display: flex;
     flex-direction: column;
     margin: auto;

@@ -1,0 +1,67 @@
+.username {
+    color: #ffffff;
+    font-size: 25px;
+    font-weight: 500;
+    font-family: 'BebasNeue', sans-serif;
+    margin-right: 25px;
+    margin-top: 25px;
+}
+
+.project-table-container {
+    background: #f3dddd;
+    width: 1000px;
+    margin: auto;
+}
+
+.HWS {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.project-details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.centered-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0.5vh 0.5vw;
+}
+
+.hardware-name {
+  font-size: larger;
+  flex-basis: 18%;
+}
+
+.hardware-data {
+  flex-basis: 22%;
+}
+
+.hardware-inputs {
+  display: flex;
+  flex-direction: row;
+  flex-basis: 60%;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.HW-section {
+  flex-basis: 50vw;
+}
+
+.hw-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0.5vh 0.5vw;
+}
+
