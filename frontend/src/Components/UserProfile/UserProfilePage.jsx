@@ -22,6 +22,10 @@ const UserProfilePage = () => {
     navigate('/login');
   }
 
+  const modalTest = () => {
+    navigate('popups')
+  }
+
   return (
     <div>
         <div className='bar'>
@@ -43,6 +47,7 @@ const UserProfilePage = () => {
           </table>
         </div>
         <button onClick={LogoutHandler}>Logout</button>
+        <button onClick={modalTest}>Modal Test</button>
     </div>
   )
 }

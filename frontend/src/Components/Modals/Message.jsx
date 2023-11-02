@@ -4,7 +4,7 @@ import './Modal.css'
 import { useNavigate } from 'react-router-dom';
 
 const Message = () => { 
-    const[modal, setModal] = useState(false)
+    const[modal, setModal] = useState(true)
 
     const toggleModal = () => {
         setModal(!modal)
@@ -14,13 +14,20 @@ const Message = () => {
     <>
         {modal && (
             <div className='modal'>
-                <div onClick={toggleModal} className="overlay"></div>
+                <div className="overlay"></div>
                 <div className='content'>
-                    <h2>Success!</h2>
-                    <h3>Request was processed</h3>
-                    <button className="close" onClick={toggleModal}>
-                        OK
-                    </button>
+                    <div>
+                        <h2>Success!</h2>
+                        <h3>Request was processed</h3>
+                        <p>Here is the success or failure Message regarding
+                            what the return message was from the server
+                        </p>
+                    </div>
+                    <div>
+                        <button  onClick={toggleModal}>
+                            OK
+                        </button>
+                    </div>
                 </div>
             </div>
         )}
