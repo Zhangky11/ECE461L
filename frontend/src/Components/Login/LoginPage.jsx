@@ -1,11 +1,13 @@
-import React, {useState} from 'react'
+import React, {useContext, useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './LoginPage.css'
+import { UserContext } from '../../App';
 
 
 // const LoginPage = ({ Login, error }) => {
 const LoginPage = () => {
+    const [user, setUser] = useContext(UserContext)
     const [details, setDetails] = useState({username: "", password: ""});
     const [error, setError] = useState('');
     const navigate = useNavigate();
@@ -15,23 +17,25 @@ const LoginPage = () => {
         try {
             const apiEndpoint = "http://127.0.0.1:5000/auth/login";
             const response = await axios.post(apiEndpoint, details);
-            if (response.data.status === "success") {
+            if (response.status === 200) {
+                setUser(details.username)
+                const token = response.data.access_token;
+                localStorage.setItem('token', token);
                 navigate('/profile');
             } else {
-                // 从后端获取错误消息并设置
                 setError(response.data.message);
             }
             
         } catch (err) {
-            // 一般的错误处理，例如网络错误或服务器错误
             setError("Failed to login. Please try again.");
         }
-        // Login(details);
-
+    }
+    const SignUpHandler = e => {
+        navigate('/register');
     }
     
     return (
-        <div>
+        <div className='wrapper'>
             <div className='bar'>
                 <div className='bar-text'>ECE461L PROJECT</div>
             </div>
@@ -55,7 +59,7 @@ const LoginPage = () => {
                 </div>
                 <div className='button-container'>
                     <div className='button' onClick={LoginHandler}>Log In</div>
-                    <div className='button'>Sign Up</div>
+                    <div className='button' onClick={SignUpHandler}>Sign Up</div>
                 </div>
                 {(error != "") ? (
                     <div className='error-text'>{error}</div>
