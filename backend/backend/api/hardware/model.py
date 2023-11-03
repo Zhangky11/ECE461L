@@ -19,5 +19,10 @@ class HwSet(db.Document):
             self.hw_amount -= amount
             self.save()
             return True
-        
+    
+    def get_totalamount(self):
+        return self.hw_amount 
+    
+    def get_name(self):
+        return self.hw_name   
     

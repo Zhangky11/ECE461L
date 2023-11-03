@@ -9,8 +9,8 @@ def request_hw():
     print("Request Hardware!")
     # data = request.get_json()
     data = {}
-    data['username'] = 'Jame'
-    data['project_id'] = 1
+    data['username'] = 'Tim'
+    data['project_id'] = 3
     data['hw_name'] = "HW 1"
     data['hw_amount'] = 10
 
