@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const RegisterPage = () => {
     const [details, setDetails] = useState({username: "", password: "", confirmPassword: "",});
@@ -17,7 +18,19 @@ const RegisterPage = () => {
         } else {
             setError('')
             // register username and password into mongoDB
-            navigate('/login')
+            try {
+                const apiEndpoint = "http://127.0.0.1:5000/auth/register";
+                const response = await axios.post(apiEndpoint, details);
+                console.log(response.data)
+                console.log(response.status)
+                if (response.status === 200) {
+                    navigate('/login');
+                } else {
+                    setError(response.data.message);
+                }   
+            } catch (err) {
+                setError("Failed to login. Please try again.");
+            }
         }
         
     }

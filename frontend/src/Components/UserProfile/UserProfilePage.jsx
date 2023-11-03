@@ -19,7 +19,9 @@ const UserProfilePage = () => {
   }
 
   const LogoutHandler = () => {
-    navigate('/login');
+    localStorage.clear();
+    setUser(null); 
+    navigate('/login')
   }
 
   return (

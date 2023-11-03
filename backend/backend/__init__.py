@@ -2,11 +2,13 @@ from flask import Flask
 from config import Config
 from flask_mongoengine import MongoEngine
 from flask_cors import CORS
+from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 
 app = Flask(__name__)
 CORS(app)
 app.config.from_object(Config)
 db = MongoEngine(app)
+jwt = JWTManager(app)
 
 from backend.auth.routes import auth
 from backend.api.project.routes import project_bp
