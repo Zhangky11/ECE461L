@@ -143,3 +143,22 @@ def delete_proj():
     project.delete()
     return jsonify({"message": "Delete project successfully"}), 200
     
+@project_bp.route('/leave_proj', methods=['POST', 'GET'])
+def leave_proj():
+    data = {}
+    data['username'] = 'Jame'
+    data['project_id'] = 4
+
+    if not User.objects(username=data['username']).first():
+        return jsonify({"message": "User doesn't exists"}), 400
+    
+    user = User.objects(username=data['username']).first()
+
+    if not Project.objects(id_inc=data['project_id']).first():
+        return jsonify({"message": "Project doesn't exists"}), 400
+    
+    project = Project.objects(id_inc=data['project_id']).first()
+    user.update(pull__joined_projects=project)
+    project.update(pull__member_list=data['username'])
+    return jsonify({"message": "Leave project successfully"}), 200
+
