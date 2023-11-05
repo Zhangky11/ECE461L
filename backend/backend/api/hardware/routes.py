@@ -5,14 +5,13 @@ from flask import Blueprint, jsonify
 hardware_bp = Blueprint('hardware_bp', __name__)
 @hardware_bp.route('/request_hw', methods=['POST','GET'])
 def request_hw():
-# def request_hw(request):
     print("Request Hardware!")
     # data = request.get_json()
     data = {}
     data['username'] = 'Tim'
     data['project_id'] = 4
     data['hw_name'] = "HW 1"
-    data['hw_amount'] = 10
+    data['hw_amount'] = 70
 
     if not Project.objects(id_inc=data['project_id']).first():
         return jsonify({"message": "Project doesn't exists"}), 400
@@ -36,7 +35,7 @@ def request_hw():
     else:
         return jsonify({"message": "Not enough HW!"}), 400
 
-    return jsonify({"message": "Request Completed!"}), 400
+    return jsonify({"message": "Request Completed!"}), 200
 
 @hardware_bp.route('/return_hw', methods=['POST','GET'])
 def return_hw():
@@ -45,8 +44,8 @@ def return_hw():
     data = {}
     data['username'] = 'Tim'
     data['project_id'] = 4
-    data['hw_name'] = "HW 1"
-    data['hw_amount'] = 40
+    data['hw_name'] = "HW 2"
+    data['hw_amount'] = 100
     if not Project.objects(id_inc=data['project_id']).first():
         return jsonify({"message": "Project doesn't exists"}), 400
     
@@ -59,17 +58,18 @@ def return_hw():
     
     if HwSet.objects(hw_name=data['hw_name']).first():
         hardware1 = HwSet.objects(hw_name=data['hw_name']).first()
+        if not hardware1.return_hardware(data['hw_amount']):
+            return jsonify({"message": "Incorrect return hardware amount!"}), 400
         if not hw_from_pool.return_hardware(data['hw_amount']):
             return jsonify({"message": "Incorrect return hardware amount!"}), 400
-        hardware1.return_hardware(data['hw_amount'])
         if hardware1.get_totalamount() == 0:
            project.update(pull__joined_hwsets=hardware1)
            hardware1.delete()
-           return jsonify({"message": "All the hardware from this HWset has been returned!"}), 400
+           return jsonify({"message": "All the hardware from this HWset has been returned!"}), 200
     
     else:           
          return jsonify({"message": "This hardware hasn't been requested yet!"}), 400
 
-    return jsonify({"message": "Return Completed!"}), 400
+    return jsonify({"message": "Return Completed!"}), 200
 
         

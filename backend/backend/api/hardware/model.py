@@ -12,9 +12,13 @@ class HwSet(db.Document):
         self.hw_amount += amount
         self.save()
     
-    def return_hardware(self, amount):     
-        self.hw_amount -= amount
-        self.save()
+    def return_hardware(self, amount):
+        if amount > self.hw_amount:
+            return False   
+        else:  
+            self.hw_amount -= amount
+            self.save()
+            return True
     
     def get_totalamount(self):
         return self.hw_amount 
