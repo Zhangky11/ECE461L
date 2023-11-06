@@ -21,9 +21,9 @@ def register():
     hwpool2.save()
 
 
-    User.objects().delete()
-    Project.objects().delete()
-    HwSet.objects().delete()
+    # User.objects().delete()
+    # Project.objects().delete()
+    # HwSet.objects().delete()
     data = request.get_json()
 
     if not data or 'username' not in data or 'password' not in data:
@@ -68,7 +68,7 @@ def login():
         return jsonify({"message": "Invalid username or password"}), 401
     access_token = create_access_token(identity=user.username)
     # session['user_id'] = str(user.id)
-    return jsonify({"access_token": access_token,"username": data['username'],'projects':user.associated_projects()}), 200
+    return jsonify({"access_token": access_token,'projects':user.associated_projects()}), 200
 
 @auth.route('/return_user/', methods=['POST'])
 @jwt_required()
