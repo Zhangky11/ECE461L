@@ -13,7 +13,7 @@
 }
 
 
-.project-table-container {
+.project-table-container1 {
     width: 50%;
     margin: auto;
     text-align: center;
@@ -38,6 +38,13 @@ th {
 .project-table {
     width: 100%;
     border-collapse: collapse;
+}
+
+.button-container1 {
+    display: flex;
+    gap: 50px;
+    margin: 50px auto;
+    margin-left: 32%;
 }
 
 td {

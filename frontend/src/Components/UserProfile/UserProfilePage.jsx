@@ -78,7 +78,7 @@ const UserProfilePage = () => {
           <div className='bar-text'>ECE461L PROJECT</div>
           <div className='username'>{user}</div>
         </div>
-        <div className='project-table-container'>
+        <div className='project-table-container1'>
           <div className='project-table-header'>Your Projects</div>
           <table className='project-table'>
             <thead>
@@ -94,10 +94,11 @@ const UserProfilePage = () => {
               ))}
             </tbody>
           </table>
+          <div className='button-container1'>
+            <button className='button' onClick={modalTest}>Modal Test</button>
+            <button className='button' onClick={LogoutHandler}>Logout</button>
+          </div>
         </div>
-        <button onClick={LogoutHandler}>Logout</button>
-        <button onClick={modalTest}>Modal Test</button>
-        <button onClick={LogoutHandler}>Logout</button>
     </div>
   )
 }
