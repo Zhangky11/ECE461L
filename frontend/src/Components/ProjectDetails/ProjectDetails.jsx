@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react'
+import React, {useContext, useState, useEffect} from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 // import HardwareSet from './HardwareSet/HardwareSet'
@@ -8,29 +8,51 @@ import { UserContext } from '../../App';
 
 
 const ProjectDetails = () => {
-    const {id} = useParams();
-    const [user, setUser] = useContext(UserContext)
+    const { id } = useParams();
+    const username = "";
+    const token = localStorage.getItem('jwtToken');
 
-    //example project for now
-    // TODO: implement context for projects that we can search for the one want and display it
+    useEffect(() => {
+      const fetchProjectDetails = async () => {
+        if (!token) return;
+  
+        const config = {
+          headers: { Authorization: `Bearer ${token}` }
+        };
+        const bodyParameters = {
+          project_id: id
+        };
+  
+        try {
+          const response = await axios.post(
+            'http://127.0.0.1:5000/api/project/display_proj',
+            bodyParameters,
+            config
+          );
+          // unpack the response.data here to obtain the data needed
+          username = response.data.username
+        } catch (error) {
+          console.error('Error fetching project details:', error);
+        }
+      };
+      fetchProjectDetails();
+    }, [id, token]);
+    
     const exampleProject = {
         id:'0',
-        name:'ExampleProject1',
+        name:'ExampleProject0',
         details:'This is an example project that is hardcoded to test out capabilities on the front end. In the final project, this will be gotten from the backend',
         members:['Kevin', 'Vikram', 'Kyrie', 'Jeffrey', 'David'],
         hwSet:[{name:'hwSet 1', capacity:100}, {name:'hwSet 2', capacity:100}],
         hwTake:[20,20]
-    }
-    const [error, setError] = useState('');
-    const navigate = useNavigate();
+      }
 
-    console.log("details page")
-    
+    // "exampleProject" below needs to be replaced with data from response.data
     return (
         <div className='wrapper'>
             <div className='bar'>
                 <div className='bar-text'>ECE461L PROJECT</div>
-                <div className='username'>{user}</div>
+                <div className='username'>{username}</div>
             </div>
             <div className='project-container'>
                 <div className='text'>{exampleProject.name}</div>

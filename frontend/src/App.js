@@ -9,7 +9,6 @@ export const UserContext = createContext();
 
 function App() {
 
-  const [user, setUser] = useState("")
 
 
   return (
@@ -20,11 +19,11 @@ function App() {
     //     <LoginPage Login={Login} error={error}/>
     //   )}
     // </div>
-    <UserContext.Provider value={[user, setUser]}>
+
       <Router>
         <RouterConfig />
       </Router>
-    </UserContext.Provider>
+
   );
 }
 
