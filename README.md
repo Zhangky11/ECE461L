@@ -76,25 +76,25 @@ You can refer to ` UserProfilePage.jsx Line 12`
    * End Point: 127.0.0.1:5000/auth/register
      
    * Argument
-           username
-           password
-           confirmPassword
+          * username
+          * password
+          * confirmPassword
      
      *Return Value
-        1)jsonify({"message": "Invalid input"})
-        2)jsonify({"message": "Password doesn't match"})
-        3)jsonify({"message": "Username already exists"})
-        4)jsonify({"message": "User registered successfully"})
+        *1)jsonify({"message": "Invalid input"})
+        *2)jsonify({"message": "Password doesn't match"})
+        *3)jsonify({"message": "Username already exists"})
+        *4)jsonify({"message": "User registered successfully"})
 
 3.return_user()
 
    *End Point: 127.0.0.1:5000/auth/return_user/
    
    *Argument
-      JWT token
+     * JWT token
       
    *return value
-         jsonify({"username":user.username,
+         *jsonify({"username":user.username,
                   'projects':{{
                                'name' :project.name,
                                'description': project.description,
@@ -109,13 +109,13 @@ You can refer to ` UserProfilePage.jsx Line 12`
    *End Point: 127.0.0.1:5000/api/project/display_proj
    
    *Argument
-      JWT token
-      project_id
+      *JWT token
+      *project_id
       
    *return value
-      1)jsonify({"message": "Project doesn't exists"})
-      2) 
-      jsonify ({"project_id": project.id_inc, 
+      *1)jsonify({"message": "Project doesn't exists"})
+      *2) 
+      *jsonify ({"project_id": project.id_inc, 
                'project_discription': project.description,
                "project_member_list": {} //list of users in  project
                "Hardware_list": {
@@ -131,87 +131,87 @@ You can refer to ` UserProfilePage.jsx Line 12`
    *Endpoint = 127.0.0.1:5000/api/project/create_proj
    
    *Argument
-      JWT token
-      project_id
-      project_name
-      project_description
+     * JWT token
+     * project_id
+     * project_name
+     * project_description
       
    *return value
-      1)  jsonify({"message": "User doesn't exists"})
-      2) jsonify({"message": "Project already exist"})
-      3) jsonify({"message": "Create project successfully"})
+      *1)  jsonify({"message": "User doesn't exists"})
+      *2) jsonify({"message": "Project already exist"})
+      *3) jsonify({"message": "Create project successfully"})
 
 6. join_proj()
    
       *endpoint: 127.0.0.1:5000/api/project/join_proj
    
       *Argument
-         JWT token
-         project_id
+         *JWT token
+         *project_id
    
       *Return value:
-         1) jsonify({"message": "User doesn't exists"})
-         2) jsonify({"message": "Project doesn't exists"})
-         3)jsonify({"message": "Join project successfully"})
+         *1) jsonify({"message": "User doesn't exists"})
+         *2) jsonify({"message": "Project doesn't exists"})
+         *3)jsonify({"message": "Join project successfully"})
 
 7.delete_proj()
 
    *endpoint: 127.0.0.1:5000/api/project/delete_proj
    
    *Argument
-      JWT token
-      project_id
+      *JWT token
+     * project_id
       
    *Return value:
-      1)jsonify({"message": "Project doesn't exists"})
-      2)jsonify({"message": "User isn't in the project"})
-      3)jsonify({"message": "Delete project successfully"})
+      *1)jsonify({"message": "Project doesn't exists"})
+      *2)jsonify({"message": "User isn't in the project"})
+      *3)jsonify({"message": "Delete project successfully"})
 
 8.leave_proj()
 
    *endpoint: 127.0.0.1:5000/api/project/leave_proj
    
    *Argument
-      JWT token
-      project_id
+      *JWT token
+      *project_id
       
    *Return value:
-      1)jsonify({"message": "Project doesn't exists"})
-      2)jsonify({"message": "User doesn't exists"})
-      3)jsonify({"message": "Leave project successfully"})
+      *1)jsonify({"message": "Project doesn't exists"})
+      *2)jsonify({"message": "User doesn't exists"})
+      *3)jsonify({"message": "Leave project successfully"})
 
 9.request_hw()
 
    *endpoint: 127.0.0.1:5000/api/hardware/request_hw
    
    *Argument
-      JWT token
-      project_id
-      hw_name
-      amount
+      *JWT token
+     * project_id
+      *hw_name
+      *amount
       
    *Return value
-      1)jsonify({"message": "Project doesn't exists"})
-      2)jsonify({"message": "HW doesn't exists"})
-      3)jsonify({"message": "Not enough HW!"})
-      4)jsonify({"message": "Request Completed!"})
+      *1)jsonify({"message": "Project doesn't exists"})
+     * 2)jsonify({"message": "HW doesn't exists"})
+      *3)jsonify({"message": "Not enough HW!"})
+      *4)jsonify({"message": "Request Completed!"})
 
 10.return_hw()
 
    *endpoint: 127.0.0.1:5000/api/hardware/return_hw
    
    *Argument
-      JWT token
-      project_id
-      hw_name
-      hw_amount
+      *JWT token
+      *project_id
+     * hw_name
+      *hw_amount
       
    *Return value
-        1)jsonify({"message": "Project doesn't exists"})    
-        2)jsonify({"message": "HW doesn't exists"})
-        3)jsonify({"message": "Incorrect return hardware amount!"})
-        4)jsonify({"message": "All the hardware from this HWset has been returned!"})
-        5)jsonify({"message": "This hardware hasn't been requested yet!"})
-        6)jsonify({"message": "Return Completed!"})
+        *1)jsonify({"message": "Project doesn't exists"})    
+        *2)jsonify({"message": "HW doesn't exists"})
+        *3)jsonify({"message": "Incorrect return hardware amount!"})
+        *4)jsonify({"message": "All the hardware from this HWset has been returned!"})
+        *5)jsonify({"message": "This hardware hasn't been requested yet!"})
+        *6)jsonify({"message": "Return Completed!"})
    
    
