@@ -39,7 +39,7 @@ const LoginPage = () => {
             <div className='bar'>
                 <div className='bar-text'>ECE461L PROJECT</div>
             </div>
-            <div className='container'>
+            <div className='container1'>
                 <div className='header'>
                     <div className='text'>Login</div>
                 </div>
