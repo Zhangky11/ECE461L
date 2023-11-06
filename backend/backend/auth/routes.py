@@ -1,11 +1,14 @@
 from flask import Blueprint, request, jsonify, session
-from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
+from flask_jwt_extended import (
+    JWTManager, jwt_required, create_access_token,
+    get_jwt_identity
+)
 from backend import jwt
 auth = Blueprint('auth', __name__)
 
 
 from .model import User
-from backend.api.project.model import Project, Sequence
+from backend.api.project.model import Project
 from backend.api.hardware.model import HwSet
 from backend.shared.hardware_pool import HardwarePool
 
@@ -19,7 +22,6 @@ def register():
 
 
     User.objects().delete()
-    Sequence.objects().delete()
     Project.objects().delete()
     HwSet.objects().delete()
     data = request.get_json()
@@ -49,7 +51,6 @@ def register():
 
 @auth.route('/login', methods=['POST', 'GET'])
 def login():
-# def login(request):
     print("Login Request!")
     data = request.get_json()
     username = data.get('username')
@@ -61,12 +62,21 @@ def login():
     data['username'] = username
     data['password'] = password
 
+
     user = User.objects(username=data['username']).first()
     if not user or not user.check_password(data['password']):
         return jsonify({"message": "Invalid username or password"}), 401
     access_token = create_access_token(identity=user.username)
     # session['user_id'] = str(user.id)
     return jsonify({"access_token": access_token,"username": data['username'],'projects':user.associated_projects()}), 200
+
+@auth.route('/return_user/', methods=['POST'])
+@jwt_required()
+def return_user():
+    # Access the identity of the current user with get_jwt_identity
+    current_user = get_jwt_identity()
+    user = User.objects(username=current_user).first()
+    return jsonify({"username": user.username,'projects':user.associated_projects()}), 200
 
 @auth.route('/logout')
 def logout():

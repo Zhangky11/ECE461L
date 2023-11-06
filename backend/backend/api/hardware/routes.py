@@ -2,15 +2,23 @@ from .model import HwSet
 from backend.api.project.model import Project
 from backend.shared.hardware_pool import HardwarePool
 from flask import Blueprint, jsonify
+from flask_jwt_extended import (
+    JWTManager, jwt_required, create_access_token,
+    get_jwt_identity
+)
 hardware_bp = Blueprint('hardware_bp', __name__)
+
 @hardware_bp.route('/request_hw', methods=['POST','GET'])
+@jwt_required()
 def request_hw():
-# def request_hw(request):
+    current_user = get_jwt_identity()
+    print("current_user:", current_user)
+
     print("Request Hardware!")
     # data = request.get_json()
     data = {}
-    data['username'] = 'Jame'
-    data['project_id'] = 1
+    data['username'] = 'k'
+    data['project_id'] = 'xxx1'
     data['hw_name'] = "HW 1"
     data['hw_amount'] = 10
 
