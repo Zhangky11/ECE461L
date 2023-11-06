@@ -8,6 +8,7 @@ import axios from 'axios';
 const UserProfilePage = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState('')
+  const [projects, setProjects] = useState([{}])
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -26,6 +27,9 @@ const UserProfilePage = () => {
 
         if (response.data && response.data.username) {
           setUser(response.data.username);
+          if (response.data.joined_projects != null) {
+            setProjects(response.data.joined_projects);
+          }
 
           // response.data is the json includes user info
         }
@@ -65,30 +69,28 @@ const UserProfilePage = () => {
   }
 
   return (
-    <div>
+    <div className='page'>
         <div className='bar'>
           <div className='bar-text'>ECE461L PROJECT</div>
           <div className='username'>{user}</div>
         </div>
         <div className='project-table-container'>
-        <div className='project-table-header'>Your Projects</div>
-        <table className='project-table'>
-          <thead>
-            <tr className='table-header'>
-              <th>Project ID</th>
-              <th>Project Name</th>
-            </tr>
-          </thead>
-          <tbody>
-            {exampleProjects.map((project) => (
-              <tr className='table-rows' key={project.id} onClick={() => navigateToProject(project.id)}>
-                <td>{project.id}</td>
-                <td>{project.name}</td>
+          <div className='project-table-header'>Your Projects</div>
+          <table className='project-table'>
+            <thead>
+              <tr className='table-header'>
+                <th>Project Name</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {exampleProjects.map((project) => (
+                <tr className='table-rows' key={project.id} onClick={() => navigateToProject(project.id)}>
+                  <td>{project.name}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       <button onClick={LogoutHandler}>Logout</button>
     </div>
   )
