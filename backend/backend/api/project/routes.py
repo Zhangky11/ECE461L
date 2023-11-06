@@ -52,6 +52,9 @@ def create_proj():
     if not User.objects(username=data['username']).first():
         return jsonify({"message": "User doesn't exists"}), 400
 
+    if Project.objects(id_inc=data['project_id']).first():
+        return jsonify({"message": "Project already exist"})
+    
     user = User.objects(username=data['username']).first()
 
     data['project_id'] = "xxx1"
