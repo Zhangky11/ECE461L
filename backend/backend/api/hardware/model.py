@@ -13,11 +13,16 @@ class HwSet(db.Document):
         self.save()
     
     def return_hardware(self, amount):
-        if (self.hw_amount - amount < 0):
-            return False
-        else:
+        if amount > self.hw_amount:
+            return False   
+        else:  
             self.hw_amount -= amount
             self.save()
             return True
-        
+    
+    def get_totalamount(self):
+        return self.hw_amount 
+    
+    def get_name(self):
+        return self.hw_name   
     
