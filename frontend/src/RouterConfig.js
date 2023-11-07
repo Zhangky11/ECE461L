@@ -35,7 +35,7 @@ const RouterConfig = () => {
                     <UserProfilePage />
                 </ProtectedRoute>
             } />
-            <Route path="/projects/:id" element={<ProjectDetails/>} />
+            <Route path="/projects/:id/:name" element={<ProjectDetails/>} />
             <Route path="/register" element={<RegisterPage />} />
             
             <Route path="/" element={<Navigate to="/login" />} />

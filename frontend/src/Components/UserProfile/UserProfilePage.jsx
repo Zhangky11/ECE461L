@@ -58,8 +58,8 @@ const UserProfilePage = () => {
   },
   ];
   
-  const navigateToProject = (projectId) => {
-    navigate(`/projects/${projectId}`);
+  const navigateToProject = (projectId, name) => {
+    navigate(`/projects/${projectId}/${name}`);
   };
 
   const LogoutHandler = () => {
@@ -88,7 +88,7 @@ const UserProfilePage = () => {
             </thead>
             <tbody>
               {exampleProjects.map((project) => (
-                <tr className='table-rows' key={project.id} onClick={() => navigateToProject(project.id)}>
+                <tr className='table-rows' key={project.id} onClick={() => navigateToProject(project.id, project.name)}>
                   <td>{project.name}</td>
                 </tr>
               ))}

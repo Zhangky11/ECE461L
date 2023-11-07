@@ -8,16 +8,22 @@ import { UserContext } from '../../App';
 
 
 const ProjectDetails = () => {
-    const { id } = useParams();
-    var username = "";
+    const { id, name } = useParams();
     const token = localStorage.getItem('jwtToken');
+    const [username, setUsername] = useState(null);
+    const [description, setDescription] = useState("");
+    const [members, setMembers] = useState([]);
+    const [HWSets, setHWSets] = useState([]);
 
     useEffect(() => {
       const fetchProjectDetails = async () => {
         if (!token) return;
-        
+  
         const config = {
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { 
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
         };
         const bodyParameters = {
           project_id: id
@@ -26,15 +32,17 @@ const ProjectDetails = () => {
         try {
           const response = await axios.post(
             'http://127.0.0.1:5000/api/project/display_proj',
-            // 'http://127.0.0.1:5000/api/project/create_proj',
             bodyParameters,
             config
           );
+          console.log(response);
+          setUsername(response.data.username);
+          // setData(response.data);
+          setDescription(response.data.project_discription);
+          setMembers(response.data.project_member_list);
+          setHWSets(response.data.Hardware_lists);
+          console.log('user: ' + response.data.username);
           // unpack the response.data here to obtain the data needed
-          // console.log(response.data)
-          username = response.data.username
-          // console.log(username)
-          // console.log(response.data.project_discription)
         } catch (error) {
           console.error('Error fetching project details:', error);
         }
@@ -59,15 +67,15 @@ const ProjectDetails = () => {
                 <div className='username'>{username}</div>
             </div>
             <div className='project-container'>
-                <div className='text'>{exampleProject.name}</div>
+                <div className='text'>{name}</div>
                 <div className='project-body'>
                     <div className='projectFeature'>
-                        <b>Description: </b> {exampleProject.details}
+                        <b>Description: </b> {description}
                     </div>
                     <div>
                         <b>Members: </b> 
                         <ul>
-                            {exampleProject.members.map((item, index) => (
+                            {members.map((item, index) => (
                                 <li key={index}>{item}</li>
                             ))}
                         </ul>
@@ -77,6 +85,7 @@ const ProjectDetails = () => {
                 <div className='text'>Hardware Sets</div>
                 <div className='project-body'>
                     <div className='hardware-area'>
+                        {HWSets}
                         <HardwareSet name="Hardware Set 1" capacity='100'/>
                         <HardwareSet name="Hardware Set 2" capacity='200'/>
                         <HardwareSet name="Hardware Set 3" capacity='150'/>
