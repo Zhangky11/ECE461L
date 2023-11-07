@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react'
+import React, {useState, useContext, Fragment} from 'react'
 import { UserContext } from '../../App'
 import './UserProfilePage.css'
 import { useNavigate } from 'react-router-dom';
@@ -23,10 +23,11 @@ const UserProfilePage = () => {
   }
 
   const modalTest = () => {
-    navigate('popups')
+    navigate('/popups')
   }
 
   return (
+    <Fragment>
     <div>
         <div className='bar'>
           <div className='bar-text'>ECE461L PROJECT</div>
@@ -49,6 +50,7 @@ const UserProfilePage = () => {
         <button onClick={LogoutHandler}>Logout</button>
         <button onClick={modalTest}>Modal Test</button>
     </div>
+    </Fragment>
   )
 }
 
