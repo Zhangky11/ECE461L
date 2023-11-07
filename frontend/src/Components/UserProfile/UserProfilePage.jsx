@@ -37,8 +37,9 @@ const UserProfilePage = () => {
 
         if (response.data && response.data.username) {
           setUser(response.data.username);
-          if (response.data.joined_projects != null) {
-            setProjects(response.data.joined_projects);
+          if (response.data.projects != null) {
+            setProjects(response.data.projects);
+            console.log(response.data.projects)
           }
 
           // response.data is the json includes user info
@@ -90,12 +91,14 @@ const UserProfilePage = () => {
           <table className='project-table'>
             <thead>
               <tr className='table-header'>
+                <th>Project ID</th>
                 <th>Project Name</th>
               </tr>
             </thead>
             <tbody>
-              {exampleProjects.map((project) => (
+              {projects.map((project) => (
                 <tr className='table-rows' key={project.id} onClick={() => navigateToProject(project.id, project.name)}>
+                  <td>{project.id}</td>
                   <td>{project.name}</td>
                 </tr>
               ))}
