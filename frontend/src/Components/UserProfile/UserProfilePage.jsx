@@ -87,22 +87,25 @@ const UserProfilePage = () => {
         </div>
         <div className='project-table-container1'>
           <div className='project-table-header'>Your Projects</div>
-          <table className='project-table'>
-            <thead>
-              <tr className='table-header'>
-                <th>Project ID</th>
-                <th>Project Name</th>
-              </tr>
-            </thead>
-            <tbody>
-              {projects.map((project) => (
-                <tr className='table-rows' key={project.id} onClick={() => navigateToProject(project.id, project.name)}>
-                  <td>{project.id}</td>
-                  <td>{project.name}</td>
+          <div className='table-container'>
+            <table className='project-table'>
+              <thead>
+                <tr className='table-header'>
+                  <th className='projectIDdisplay'>Project ID</th>
+                  <th>Project Name</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <div></div>
+              <tbody>
+                {projects.map((project) => (
+                  <tr className='table-rows' key={project.id} onClick={() => navigateToProject(project.id, project.name)}>
+                    <td>{project.id}</td>
+                    <td>{project.name}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
           <div className='button-container1'>
             <button className='button' onClick={() => setMessage(true)}>Message Test</button>
             <button className='button'onClick={() => setJoin(true)}>Join</button>
