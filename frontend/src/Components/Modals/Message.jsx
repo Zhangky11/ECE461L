@@ -7,7 +7,7 @@ const Message = () => {
     const[modal, setModal] = useState(true)
 
     const toggleModal = () => {
-        setModal(!modal)
+        setModal(false)
     }
 
     return (

@@ -4,12 +4,21 @@ import './UserProfilePage.css'
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import CreateProject from '../Modals/CreateProject';
+import JoinProject from '../Modals/JoinProject';
+import Message from '../Modals/Message';
 
 
 const UserProfilePage = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState('')
-  const [projects, setProjects] = useState([{}])
+  const [user, setUser] = useState('');
+  const [projects, setProjects] = useState([{}]);
+
+  const [message, setMessage] = useState(false);
+  const [join, setJoin] = useState(false);
+  const [create, setCreate] = useState(false);
+
+  // TODO: display the modals as an instance of the name of the modal in the return function 
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -69,10 +78,6 @@ const UserProfilePage = () => {
     navigate('/login')
   }
 
-  const modalTest = () => {
-    navigate('/popups')
-  }
-
   return (
     <Fragment>
     <div className='page'>
@@ -97,11 +102,16 @@ const UserProfilePage = () => {
             </tbody>
           </table>
           <div className='button-container1'>
-            <button className='button' onClick={modalTest}>Modal Test</button>
+            <button className='button' onClick={() => setMessage(true)}>Message Test</button>
+            <button className='button'onClick={() => setJoin(true)}>Join</button>
+            <button className='button'onClick={() => setCreate(true)}>Create</button>
             <button className='button' onClick={LogoutHandler}>Logout</button>
           </div>
         </div>
     </div>
+    <CreateProject modal={message}>Create Project modal</CreateProject>
+    <JoinProject modal={join}>Join Project modal</JoinProject>
+    <Message modal={create}>Message modal</Message>
     </Fragment>
   )
 }
