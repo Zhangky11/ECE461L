@@ -18,7 +18,7 @@ def request_hw():
     data = {}
     current_user = get_jwt_identity()
     print("current_user:", current_user)
-    data['username'] = User.objects(username=current_user).first()
+    data['username'] = current_user
     # data['username'] = 'k'
     data['project_id'] = raw_data.get('project_id')
     data['hw_name'] = raw_data.get('hw_name')

@@ -16,6 +16,7 @@ class HardwarePool(db.Document):
             return False 
 
     def return_hardware(self, amount):
+        amount = int(amount)
         if self.total_availability+amount <= self.total_capacity:
             self.total_availability += amount
             self.save()
