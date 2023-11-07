@@ -42,6 +42,8 @@ def display_proj():
 @project_bp.route('/create_proj', methods=['POST', 'GET'])
 # @jwt_required()
 def create_proj():
+
+    
     print("Create Project Request!")
     raw_data = request.get_json()
     current_user = get_jwt_identity()
@@ -55,7 +57,19 @@ def create_proj():
     data['project_name'] = project_name
     data['project_description'] = project_description
     data['HwSet'] = []
-
+    
+    return_dict = []
+    for hardware in HardwarePool.objects:
+            hardware_info = {
+                'hw_name': hardware.name,
+                'hw_amount': 0,
+                'total_availability': hardware.total_availability,
+            }
+            return_dict.append(hardware_info)
+    return_dict.append({"message": "Create project successfully"})
+    
+    
+    
     # Hardcode for test use
     # data = {}
     # data['username'] = 'k'
@@ -69,7 +83,7 @@ def create_proj():
         return jsonify({"message": "User doesn't exists"}), 400
 
     if Project.objects(id_inc=data['project_id']).first():
-        return jsonify({"message": "Project already exist"})
+        return jsonify({"message": "Project already exist"}),400
     
     user = User.objects(username=data['username']).first()
 
@@ -78,9 +92,9 @@ def create_proj():
     # project1.id_inc = Project.get_next_sequence()
     project.save()
     
-    user.joined_projects.append(project)
+    user.joined_projects.append(project)   
     user.save()
-    return jsonify({"message": "Create project successfully"}), 200
+    return jsonify({'message':return_dict}), 200
 
 
 @project_bp.route('/join_proj', methods=['POST', 'GET'])
