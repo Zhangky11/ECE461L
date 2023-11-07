@@ -26,12 +26,14 @@ const ProjectDetails = () => {
           }
         };
         const bodyParameters = {
-          project_id: id
+          project_id: id,
+          project_name: 'Example Project 2',
+          project_description: 'example description'
         };
   
         try {
           const response = await axios.post(
-            'http://127.0.0.1:5000/api/project/display_proj',
+            'http://127.0.0.1:5000/api/project/create_proj',
             bodyParameters,
             config
           );

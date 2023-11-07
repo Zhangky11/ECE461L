@@ -47,6 +47,7 @@ class HardwareSet extends React.Component {
 
   async checkOutHw() {
     var qty = this.state.quantity===""? 0 : parseInt(this.state.quantity);
+    var response;
     // const response = await this.makeCall("checkout/" + this.props.projectid + "/" + qty)
     // alert(response.qty + " hardware checked out")
 
@@ -62,7 +63,7 @@ class HardwareSet extends React.Component {
         hw_name: this.props.name,
         amount: qty
       };
-      const response = await axios.post(
+      response = await axios.post(
         'http://127.0.0.1:5000/api/hardware/request_hw',
         bodyParameters,
         config
@@ -75,18 +76,11 @@ class HardwareSet extends React.Component {
           checkedOut: checkedOutVal
         })
       }
-      else {
-        alert("HI");
-        console.log("ERROR: " + response.data.message); // TODO: handle the error
-      }
       // unpack the response.data here to obtain the data needed
     } catch (error) {
+      alert(error.response.data.message);
       console.error('Error fetching project details:', error);
     }
-    
-
-    
-    
   }
 
   async checkInHw() {
@@ -119,12 +113,9 @@ class HardwareSet extends React.Component {
           checkedOut: checkedInVal
         }) 
       }
-      else {
-        alert(response.data.message);
-        console.log("ERROR: " + response.data.message); // TODO: handle the error
-      }
       // unpack the response.data here to obtain the data needed
     } catch (error) {
+      alert(error.response.data.message);
       console.error('Error fetching project details:', error);
     }
     // alert(response.qty + " hardware checked in")
