@@ -2,36 +2,36 @@ import React, {useContext, useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './LoginPage.css'
-import { UserContext } from '../../App';
 
 
 // const LoginPage = ({ Login, error }) => {
 const LoginPage = () => {
-    const [user, setUser] = useContext(UserContext)
+    const [user, setUser] = useState('')
     const [details, setDetails] = useState({username: "", password: ""});
     const [error, setError] = useState('');
     const navigate = useNavigate();
-    console.log("login page")
     const LoginHandler = async (e) => {
         e.preventDefault();
         try {
             const apiEndpoint = "http://127.0.0.1:5000/auth/login";
             const response = await axios.post(apiEndpoint, details);
-            if (response.data.status === "success") {
-                // 登录成功的逻辑，例如重定向到主页
-                setUser(details.username)
+            if (response.status === 200) {
+                // setUser(details.username)
+                const token = response.data.access_token;
+                localStorage.setItem('jwtToken', token);
+                console.log(token)
                 navigate('/profile');
+                return;
             } else {
-                // 从后端获取错误消息并设置
                 setError(response.data.message);
             }
             
         } catch (err) {
-            // 一般的错误处理，例如网络错误或服务器错误
             setError("Failed to login. Please try again.");
         }
-        // Login(details);
-
+    }
+    const SignUpHandler = e => {
+        navigate('/register');
     }
     
     return (
@@ -39,7 +39,7 @@ const LoginPage = () => {
             <div className='bar'>
                 <div className='bar-text'>ECE461L PROJECT</div>
             </div>
-            <div className='container'>
+            <div className='container1'>
                 <div className='header'>
                     <div className='text'>Login</div>
                 </div>
@@ -59,7 +59,7 @@ const LoginPage = () => {
                 </div>
                 <div className='button-container'>
                     <div className='button' onClick={LoginHandler}>Log In</div>
-                    <div className='button'>Sign Up</div>
+                    <div className='button' onClick={SignUpHandler}>Sign Up</div>
                 </div>
                 {(error != "") ? (
                     <div className='error-text'>{error}</div>
