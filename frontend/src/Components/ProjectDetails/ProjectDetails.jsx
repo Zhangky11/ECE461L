@@ -9,13 +9,13 @@ import { UserContext } from '../../App';
 
 const ProjectDetails = () => {
     const { id } = useParams();
-    const username = "";
+    var username = "";
     const token = localStorage.getItem('jwtToken');
 
     useEffect(() => {
       const fetchProjectDetails = async () => {
         if (!token) return;
-  
+        
         const config = {
           headers: { Authorization: `Bearer ${token}` }
         };
@@ -26,11 +26,15 @@ const ProjectDetails = () => {
         try {
           const response = await axios.post(
             'http://127.0.0.1:5000/api/project/display_proj',
+            // 'http://127.0.0.1:5000/api/project/create_proj',
             bodyParameters,
             config
           );
           // unpack the response.data here to obtain the data needed
+          // console.log(response.data)
           username = response.data.username
+          // console.log(username)
+          // console.log(response.data.project_discription)
         } catch (error) {
           console.error('Error fetching project details:', error);
         }

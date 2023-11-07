@@ -14,15 +14,15 @@ hardware_bp = Blueprint('hardware_bp', __name__)
 def request_hw():
 
     print("Request Hardware!")
-    data = request.get_json()
+    raw_data = request.get_json()
     data = {}
     current_user = get_jwt_identity()
     print("current_user:", current_user)
     data['username'] = User.objects(username=current_user).first()
     # data['username'] = 'k'
-    data['project_id'] = data.get('project_id')
-    data['hw_name'] = data.get('hw_name')
-    data['hw_amount'] = data.get('amount')
+    data['project_id'] = raw_data.get('project_id')
+    data['hw_name'] = raw_data.get('hw_name')
+    data['hw_amount'] = raw_data.get('amount')
 
     if not Project.objects(id_inc=data['project_id']).first():
         return jsonify({"message": "Project doesn't exists"}), 400
@@ -52,15 +52,15 @@ def request_hw():
 @jwt_required()
 def return_hw():
     print("Return Hardware!")
-    data = request.get_json()
+    raw_data = request.get_json()
     data = {}
     current_user = get_jwt_identity()
     print("current_user:", current_user)
     data['username'] = User.objects(username=current_user).first()
     # data['username'] = 'k'
-    data['project_id'] = data.get('project_id')
-    data['hw_name'] = data.get('hw_name')
-    data['hw_amount'] = data.get('amount')
+    data['project_id'] = raw_data.get('project_id')
+    data['hw_name'] = raw_data.get('hw_name')
+    data['hw_amount'] = raw_data.get('amount')
     if not Project.objects(id_inc=data['project_id']).first():
         return jsonify({"message": "Project doesn't exists"}), 400
     

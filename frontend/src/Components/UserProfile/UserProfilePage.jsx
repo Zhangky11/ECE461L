@@ -69,7 +69,7 @@ const UserProfilePage = () => {
   }
 
   const modalTest = () => {
-    navigate('popups')
+    // navigate('/profile/popups')
   }
 
   return (

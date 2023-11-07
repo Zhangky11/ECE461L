@@ -18,36 +18,52 @@ project_bp = Blueprint('project_bp', __name__)
 @jwt_required()
 def display_proj():
     print("Display Project Request!")
-    data = request.get_json()
-    data = {}
+    raw_data = request.get_json()
     current_user = get_jwt_identity()
-    print("current_user:", current_user)
-    # data['username'] = 'k'
-    data['project_id'] = data.get('project_id')
+    project_id = raw_data.get('project_id')
+
+    print(current_user)
+    print(project_id)
+    data = {}
+    data['project_id'] = project_id
 
     if not Project.objects(id_inc=data['project_id']).first():
+        print(f"no project {project_id}!!")
         return jsonify({"message": "Project doesn't exists"}), 400
     project = Project.objects(id_inc=data['project_id']).first()
-
-    return_dict = {"project_id": project.id_inc, 
+    
+    return_dict = {"username": current_user, 
+                   "project_id": project.id_inc, 
                    'project_discription': project.description,
                    "project_member_list": project.member_list, 
                    "Hardware_list": project.associated_hardwares()}
     return jsonify(return_dict), 200
 
 @project_bp.route('/create_proj', methods=['POST', 'GET'])
-@jwt_required()
+# @jwt_required()
 def create_proj():
     print("Create Project Request!")
-    data = request.get_json()
-    data = {}
+    raw_data = request.get_json()
     current_user = get_jwt_identity()
-    data['username'] = User.objects(username=current_user).first()
-    # data['username'] = 'k'
-    data['project_id'] = data.get('project_id')
-    data['project_name'] = data.get('project_name')
-    data['project_description'] = data.get('project_description')
+    project_id = raw_data.get('project_id')
+    project_name = raw_data.get('project_name')
+    project_description = raw_data.get('project_description')
+
+    data = {}
+    data['username'] = current_user
+    data['project_id'] = project_id
+    data['project_name'] = project_name
+    data['project_description'] = project_description
     data['HwSet'] = []
+
+    # Hardcode for test use
+    # data = {}
+    # data['username'] = 'k'
+    # data['project_id'] = "0"
+    # data['project_name'] = "k's Project 1"
+    # data['project_description'] = "This is k's Project 1"
+    # data['HwSet'] = []
+
 
     if not User.objects(username=data['username']).first():
         return jsonify({"message": "User doesn't exists"}), 400
@@ -56,11 +72,6 @@ def create_proj():
         return jsonify({"message": "Project already exist"})
     
     user = User.objects(username=data['username']).first()
-
-    data['project_id'] = "xxx1"
-    data['project_name'] = "k's Project 1"
-    data['project_description'] = "This is k's Project 1"
-    data['HwSet'] = []
 
     project = Project(name=data['project_name'], description=data['project_description'], joined_hwsets = data['HwSet'], id_inc=data['project_id'])
     project.member_list.append(user.username)
@@ -76,13 +87,12 @@ def create_proj():
 @jwt_required()
 def join_proj():
     print("Join Project Request!")
-    data = request.get_json()
-    data = {}
+    raw_data = request.get_json()
     current_user = get_jwt_identity()
-    data['username'] = User.objects(username=current_user).first()
-    # data['username'] = 'k'
-    data['project_id'] = data.get('project_id')
-    # data['project_id'] = 'xxx1'
+    project_id = raw_data.get('project_id')
+    data = {}
+    data['username'] = current_user
+    data['project_id'] = project_id
 
     if not User.objects(username=data['username']).first():
         return jsonify({"message": "User doesn't exists"}), 400
@@ -106,12 +116,12 @@ def join_proj():
 def delete_proj():
     #memberlist
     #hardwareset
-    data = {}
+    raw_data = request.get_json()
     current_user = get_jwt_identity()
-    data['username'] = User.objects(username=current_user).first()
-    # data['username'] = 'k'
-    data['project_id'] = data.get('project_id')
-    # data['project_id'] = 'xxx1'
+    project_id = raw_data.get('project_id')
+    data = {}
+    data['username'] = current_user
+    data['project_id'] = project_id
     
     project = Project.objects(id_inc=data['project_id']).first()
     #objid = project.id
@@ -148,13 +158,13 @@ def delete_proj():
 @project_bp.route('/leave_proj', methods=['POST', 'GET'])
 @jwt_required()
 def leave_proj():
-    data = {}
-    current_user = get_jwt_identity()
-    data['username'] = User.objects(username=current_user).first()
-    # data['username'] = 'k'
-    data['project_id'] = data.get('project_id')
-    # data['project_id'] = 'xxx1'
 
+    raw_data = request.get_json()
+    current_user = get_jwt_identity()
+    project_id = raw_data.get('project_id')
+    data = {}
+    data['username'] = current_user
+    data['project_id'] = project_id
 
     if not User.objects(username=data['username']).first():
         return jsonify({"message": "User doesn't exists"}), 400

@@ -37,6 +37,7 @@ const RouterConfig = () => {
             } />
             <Route path="/projects/:id" element={<ProjectDetails/>} />
             <Route path="/register" element={<RegisterPage />} />
+            
             <Route path="/" element={<Navigate to="/login" />} />
             {/* Maybe we need an error page */}
             {/* <Route path="/" element={<Navigate to="/login" />} /> */}

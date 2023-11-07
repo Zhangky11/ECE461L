@@ -21,9 +21,9 @@ def register():
     hwpool2.save()
 
 
-    # User.objects().delete()
-    # Project.objects().delete()
-    # HwSet.objects().delete()
+    User.objects().delete()
+    Project.objects().delete()
+    HwSet.objects().delete()
     data = request.get_json()
 
     if not data or 'username' not in data or 'password' not in data:
