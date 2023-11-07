@@ -111,7 +111,7 @@ const UserProfilePage = () => {
     </div>
     <CreateProject modal={message}>Create Project modal</CreateProject>
     <JoinProject modal={join}>Join Project modal</JoinProject>
-    <Message modal={create}>Message modal</Message>
+    <Message modal={create} >Message modal</Message>
     </Fragment>
   )
 }

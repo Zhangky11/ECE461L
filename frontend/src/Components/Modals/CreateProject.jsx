@@ -4,7 +4,7 @@ import './Modal.css'
 import { useNavigate } from 'react-router-dom';
 
 const CreateProject = () => {
-    const[modal, setModal] = useState(true)
+    const[modal, setModal] = useState(false)
 
     const toggleModal = () => {
         setModal(!modal)
