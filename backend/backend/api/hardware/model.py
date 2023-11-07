@@ -4,7 +4,9 @@ from mongoengine import Document, ReferenceField,ListField
 from backend import db
 
 class HwSet(db.Document):
-    hw_name = db.StringField(required=True, unique=True)   
+    username = db.StringField(required=True)
+    project_id = db.StringField(required=True)
+    hw_name = db.StringField(required=True)   
     hw_amount = db.IntField(required=True)
     hardware_from_pool = ReferenceField(HardwarePool)
 
