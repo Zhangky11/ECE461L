@@ -35,7 +35,7 @@ const ProjectDetails = () => {
             bodyParameters,
             config
           );
-          console.log(response);
+          console.log(response.data);
           setUsername(response.data.username);
           // setData(response.data);
           setDescription(response.data.project_discription);

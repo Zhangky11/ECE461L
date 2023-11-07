@@ -80,7 +80,6 @@ const UserProfilePage = () => {
   }
 
   return (
-    <Fragment>
     <div className='page'>
         <div className='bar'>
           <div className='bar-text'>ECE461L PROJECT</div>
@@ -111,11 +110,12 @@ const UserProfilePage = () => {
             <button className='button' onClick={LogoutHandler}>Logout</button>
           </div>
         </div>
+        <CreateProject modal={message}>Create Project modal</CreateProject>
+        <JoinProject modal={join}>Join Project modal</JoinProject>
+        <Message modal={create} >Message modal</Message>
     </div>
-    <CreateProject modal={message}>Create Project modal</CreateProject>
-    <JoinProject modal={join}>Join Project modal</JoinProject>
-    <Message modal={create} >Message modal</Message>
-    </Fragment>
+
+
   )
 }
 
