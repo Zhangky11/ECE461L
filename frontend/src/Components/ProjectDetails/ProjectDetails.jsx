@@ -86,9 +86,8 @@ const ProjectDetails = () => {
                 <div className='project-body'>
                     <div className='hardware-area'>
                         {HWSets}
-                        <HardwareSet name="Hardware Set 1" capacity='100'/>
-                        <HardwareSet name="Hardware Set 2" capacity='200'/>
-                        <HardwareSet name="Hardware Set 3" capacity='150'/>
+                        <HardwareSet id={id} name="HW 1" capacity='100'/>
+                        <HardwareSet id={id} name="HW 2" capacity='100'/>
                     </div>
                 </div>
             </div>

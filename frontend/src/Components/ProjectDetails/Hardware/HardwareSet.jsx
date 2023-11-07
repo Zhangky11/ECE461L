@@ -20,6 +20,7 @@ class HardwareSet extends React.Component {
       capacity: 100,
       quantity: "",
       checkedOut: 0,
+      token: localStorage.getItem('jwtToken')
     }
   }
 
@@ -49,25 +50,84 @@ class HardwareSet extends React.Component {
     // const response = await this.makeCall("checkout/" + this.props.projectid + "/" + qty)
     // alert(response.qty + " hardware checked out")
 
-    var checkedOutVal = this.state.checkedOut + qty
-    if(checkedOutVal > this.props.capacity) checkedOutVal = this.props.capacity;
-    this.setState({
-      checkedOut: checkedOutVal
-    })
+    try {
+      const config = {
+        headers: { 
+          Authorization: `Bearer ${this.state.token}`,
+          'Content-Type': 'application/json'
+        }
+      };
+      const bodyParameters = {
+        project_id: this.props.id,
+        hw_name: this.props.name,
+        amount: qty
+      };
+      const response = await axios.post(
+        'http://127.0.0.1:5000/api/hardware/request_hw',
+        bodyParameters,
+        config
+      );
+      console.log(response);
+      if(response.status === 200) {
+        var checkedOutVal = this.state.checkedOut + qty
+        if(checkedOutVal > this.props.capacity) checkedOutVal = this.props.capacity;
+        this.setState({
+          checkedOut: checkedOutVal
+        })
+      }
+      else {
+        alert("HI");
+        console.log("ERROR: " + response.data.message); // TODO: handle the error
+      }
+      // unpack the response.data here to obtain the data needed
+    } catch (error) {
+      console.error('Error fetching project details:', error);
+    }
+    
+
+    
     
   }
 
   async checkInHw() {
-    var qty = this.state.quantity===""? 0 : parseInt(this.state.quantity);
+    // var qty = this.state.quantity===""? 0 : parseInt(this.state.quantity)
+    var qty = this.state.quantity;
     if(qty === 'NaN' || qty == null) qty = 0;
     // const response = await this.makeCall("checkin/" + this.props.projectid + "/" + qty);
+    try {
+      const config = {
+        headers: { 
+          Authorization: `Bearer ${this.state.token}`,
+          'Content-Type': 'application/json'
+        }
+      };
+      const bodyParameters = {
+        project_id: this.props.id,
+        hw_name: this.props.name,
+        amount: qty
+      };
+      const response = await axios.post(
+        'http://127.0.0.1:5000/api/hardware/return_hw',
+        bodyParameters,
+        config
+      );
+      console.log(response);
+      if(response.status === 200) {
+        var checkedInVal = this.state.checkedOut - qty 
+        if(checkedInVal < 0) checkedInVal = 0;
+        this.setState({
+          checkedOut: checkedInVal
+        }) 
+      }
+      else {
+        alert(response.data.message);
+        console.log("ERROR: " + response.data.message); // TODO: handle the error
+      }
+      // unpack the response.data here to obtain the data needed
+    } catch (error) {
+      console.error('Error fetching project details:', error);
+    }
     // alert(response.qty + " hardware checked in")
-
-    var checkedInVal = this.state.checkedOut - qty 
-    if(checkedInVal < 0) checkedInVal = 0;
-    this.setState({
-      checkedOut: checkedInVal
-    }) 
   }
 
   async makeCall(url) {
