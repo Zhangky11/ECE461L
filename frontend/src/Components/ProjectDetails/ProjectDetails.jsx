@@ -33,16 +33,16 @@ const ProjectDetails = () => {
   
         try {
           const response = await axios.post(
-            'http://127.0.0.1:5000/api/project/create_proj',
+            'http://127.0.0.1:5000/api/project/display_proj',
             bodyParameters,
             config
           );
           console.log(response.data);
           setUsername(response.data.username);
           // setData(response.data);
-          setDescription(response.data.project_discription);
+          setDescription(response.data.project_description);
           setMembers(response.data.project_member_list);
-          setHWSets(response.data.Hardware_lists);
+          setHWSets(response.data.Hardware_list);
           console.log('user: ' + response.data.username);
           // unpack the response.data here to obtain the data needed
         } catch (error) {
@@ -51,15 +51,6 @@ const ProjectDetails = () => {
       };
       fetchProjectDetails();
     }, [id, token]);
-    
-    const exampleProject = {
-        id:'0',
-        name:'ExampleProject0',
-        details:'This is an example project that is hardcoded to test out capabilities on the front end. In the final project, this will be gotten from the backend',
-        members:['Kevin', 'Vikram', 'Kyrie', 'Jeffrey', 'David'],
-        hwSet:[{name:'hwSet 1', capacity:100}, {name:'hwSet 2', capacity:100}],
-        hwTake:[20,20]
-      }
 
     // "exampleProject" below needs to be replaced with data from response.data
     return (
@@ -77,9 +68,9 @@ const ProjectDetails = () => {
                     <div>
                         <b>Members: </b> 
                         <ul>
-                            {members.map((item, index) => (
-                                <li key={index}>{item}</li>
-                            ))}
+                          {Array.isArray(members) && members.map((item, index) => (
+                              <li key={index}>{item}</li>
+                          ))}
                         </ul>
                     </div>
                 </div>

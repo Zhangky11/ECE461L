@@ -12,7 +12,6 @@ hardware_bp = Blueprint('hardware_bp', __name__)
 @hardware_bp.route('/request_hw', methods=['POST','GET'])
 @jwt_required()
 def request_hw():
-
     print("Request Hardware!")
     raw_data = request.get_json()
     data = {}
@@ -35,18 +34,27 @@ def request_hw():
     hw_from_pool = HardwarePool.objects(name=data['hw_name']).first()
     if hw_from_pool.request_hardware(data['hw_amount']):
 
-        if not HwSet.objects(hw_name=data['hw_name']).first():
-            hardware1 = HwSet(hw_name=data['hw_name'], hw_amount=data['hw_amount'], hardware_from_pool=hw_from_pool)
-            hardware1.save()
-            project.joined_hwsets.append(hardware1)
-            project.save()
+        # if not HwSet.objects(hw_name=data['hw_name']).first():
+        #     hardware1 = HwSet(hw_name=data['hw_name'], hw_amount=data['hw_amount'], hardware_from_pool=hw_from_pool)
+        #     hardware1.save()
+        #     project.joined_hwsets.append(hardware1)
+        #     project.save()
+        # else:
+        if data['hw_name'] == "Hardware Set 1":
+            hardware = project.joined_hwsets[0]
         else:
-            hardware1 = HwSet.objects(hw_name=data['hw_name']).first()
-            hardware1.add_hardware(data['hw_amount'])
+            hardware = project.joined_hwsets[1]
+        hardware.add_hardware(data['hw_amount'])
+        hardware.save()
     else:
         return jsonify({"message": "Not enough HW!"}), 400
-
-    return jsonify({"message": "Request Completed!"}), 200
+    return_dict = {
+        "hw1_possessed": project.joined_hwsets[0].hw_amount,
+        "hw2_possessed": project.joined_hwsets[1].hw_amount,
+        "hw1_available": project.joined_hwsets[0].hardware_from_pool.total_availability,
+        "hw2_available": project.joined_hwsets[1].hardware_from_pool.total_availability,
+    }
+    return jsonify({"message": "Request Completed!", "return_hw": return_dict}), 200
 
 @hardware_bp.route('/return_hw', methods=['POST','GET'])
 @jwt_required()

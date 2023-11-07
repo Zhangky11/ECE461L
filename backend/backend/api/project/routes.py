@@ -34,52 +34,52 @@ def display_proj():
     
     return_dict = {"username": current_user, 
                    "project_id": project.id_inc, 
-                   'project_discription': project.description,
+                   'project_description': project.description,
                    "project_member_list": project.member_list, 
                    "Hardware_list": project.associated_hardwares()}
     return jsonify(return_dict), 200
 
 @project_bp.route('/create_proj', methods=['POST', 'GET'])
-# @jwt_required()
+@jwt_required()
 def create_proj():
     print("Create Project Request!")
-    # raw_data = request.get_json()
-    # current_user = get_jwt_identity()
-    # project_id = raw_data.get('project_id')
-    # project_name = raw_data.get('project_name')
-    # project_description = raw_data.get('project_description')
+    raw_data = request.get_json()
+    current_user = get_jwt_identity()
+    project_id = raw_data.get('project_id')
+    project_name = raw_data.get('project_name')
+    project_description = raw_data.get('project_description')
 
-    # data = {}
-    # data['username'] = current_user
-    # data['project_id'] = project_id
-    # data['project_name'] = project_name
-    # data['project_description'] = project_description
-    # data['HwSet'] = []
+    data = {}
+    data['username'] = current_user
+    data['project_id'] = project_id
+    data['project_name'] = project_name
+    data['project_description'] = project_description
+    data['HwSet'] = []
 
     # Hardcode for test use
-    for i in range(7):
-        data = {}
-        data['username'] = 'k'
-        data['project_id'] = f"{i}"
-        data['project_name'] = f"k's Project {i}"
-        data['project_description'] = f"This is k's Project {i}"
-        data['HwSet'] = []
+    # for i in range(7):
+    #     data = {}
+    #     data['username'] = 'k'
+    #     data['project_id'] = f"{i}"
+    #     data['project_name'] = f"k's Project {i}"
+    #     data['project_description'] = f"This is k's Project {i}"
+    #     data['HwSet'] = []
 
 
-        if not User.objects(username=data['username']).first():
-            return jsonify({"message": "User doesn't exists"}), 400
+    if not User.objects(username=data['username']).first():
+        return jsonify({"message": "User doesn't exists"}), 400
 
-        if Project.objects(id_inc=data['project_id']).first():
-            return jsonify({"message": "Project already exist"})
-        
-        user = User.objects(username=data['username']).first()
+    if Project.objects(id_inc=data['project_id']).first():
+        return jsonify({"message": "Project already exist"})
+    
+    user = User.objects(username=data['username']).first()
 
-        project = Project(name=data['project_name'], description=data['project_description'], joined_hwsets = data['HwSet'], id_inc=data['project_id'])
-        project.member_list.append(user.username)
-        # project1.id_inc = Project.get_next_sequence()
-        project.save()
-        user.joined_projects.append(project)
-        user.save()
+    project = Project(name=data['project_name'], description=data['project_description'], joined_hwsets = data['HwSet'], id_inc=data['project_id'])
+    project.member_list.append(user.username)
+    # project1.id_inc = Project.get_next_sequence()
+    project.save()
+    user.joined_projects.append(project)
+    user.save()
     return jsonify({"message": "Create project successfully"}), 200
 
 
