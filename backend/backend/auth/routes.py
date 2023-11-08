@@ -14,16 +14,6 @@ from backend.shared.hardware_pool import HardwarePool
 
 @auth.route('/register', methods=['POST', 'GET'])
 def register():
-    HardwarePool.objects().delete()
-    hwpool1 = HardwarePool(name="HW 1", total_capacity=100, total_availability=100)
-    hwpool2 = HardwarePool(name="HW 2", total_capacity=100, total_availability=100)
-    hwpool1.save()
-    hwpool2.save()
-
-
-    User.objects().delete()
-    Project.objects().delete()
-    HwSet.objects().delete()
     data = request.get_json()
 
     if not data or 'username' not in data or 'password' not in data:

@@ -126,11 +126,13 @@ def join_proj():
     
     user = User.objects(username=data['username']).first()
 
-
     if not Project.objects(id_inc=data['project_id']).first():
         return jsonify({"message": "Project doesn't exists"}), 400
     
     project = Project.objects(id_inc=data['project_id']).first()
+
+    if project in user.joined_projects:
+        return jsonify({"message": "You have already joined the project"}), 400
 
     user.joined_projects.append(project)
     user.save()
