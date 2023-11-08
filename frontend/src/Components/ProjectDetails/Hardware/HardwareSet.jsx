@@ -9,48 +9,28 @@ import { Link } from 'react-router-dom';
 
 class HardwareSet extends React.Component {
   constructor(props) {
-    super(props)
-    this.checkOutHw = this.checkOutHw.bind(this)
-    this.checkInHw = this.checkInHw.bind(this)
-    this.setQuantity = this.setQuantity.bind(this)
-    this.toggle = this.toggle.bind(this)
-    this.makeCall = this.makeCall.bind(this)
+    super(props);
+    this.checkOutHw = this.checkOutHw.bind(this);
+    this.checkInHw = this.checkInHw.bind(this);
+    this.setQuantity = this.setQuantity.bind(this);
     this.state = {
-      name: "Hardware Set 1",
-      capacity: 100,
       quantity: "",
-      checkedOut: 0,
       token: localStorage.getItem('jwtToken')
+    };
+  }
+
+  componentDidUpdate(prevProps) {
+    // Only update state if props have changed
+    if (prevProps.amount !== this.props.amount || prevProps.availability !== this.props.availability) {
+      this.setState({
+        amount: this.props.amount,
+        availability: this.props.availability,
+      });
     }
   }
 
-  render() {
-    return (
-      <div className = "HWS">
-        <div className = "project-details">
-          <div className = "centered-text hardware-name">
-            {this.props.name}
-          </div>
-          <div className="centered-text hardware-data">
-            <div>Taken: {this.state.checkedOut}</div>
-            <div>Available: {this.props.capacity}</div>
-          </div>
-          <div className = "hardware-inputs">
-            <div className = "hw-box"><TextField id="outlined-basic" label="Quantity" variant="outlined" value={this.state.quantity} onChange={this.setQuantity} /></div>
-            <div className = "hw-box"><Button variant="contained" color="primary" onClick={this.checkOutHw}>Check Out</Button></div>
-            <div className = "hw-box"><Button variant="contained" color="primary" onClick={this.checkInHw}>Check In</Button></div>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
   async checkOutHw() {
-    var qty = this.state.quantity===""? 0 : parseInt(this.state.quantity);
-    var response;
-    // const response = await this.makeCall("checkout/" + this.props.projectid + "/" + qty)
-    // alert(response.qty + " hardware checked out")
-
+    const qty = this.state.quantity === "" ? 0 : parseInt(this.state.quantity);
     try {
       const config = {
         headers: { 
@@ -63,31 +43,23 @@ class HardwareSet extends React.Component {
         hw_name: this.props.name,
         amount: qty
       };
-      response = await axios.post(
+      const response = await axios.post(
         'http://127.0.0.1:5000/api/hardware/request_hw',
         bodyParameters,
         config
       );
-      console.log(response);
-      if(response.status === 200) {
-        var checkedOutVal = this.state.checkedOut + qty
-        if(checkedOutVal > this.props.capacity) checkedOutVal = this.props.capacity;
-        this.setState({
-          checkedOut: checkedOutVal
-        })
+      if (response.status === 200) {
+        // Call a method passed as prop from the parent component to update the parent's state
+        this.props.onHardwareChange(response.data.return_hw.hw_possessed, response.data.return_hw.hw_available);
       }
-      // unpack the response.data here to obtain the data needed
     } catch (error) {
       alert(error.response.data.message);
-      console.error('Error fetching project details:', error);
+      console.error('Error:', error);
     }
   }
 
   async checkInHw() {
-    // var qty = this.state.quantity===""? 0 : parseInt(this.state.quantity)
-    var qty = this.state.quantity;
-    if(qty === 'NaN' || qty == null) qty = 0;
-    // const response = await this.makeCall("checkin/" + this.props.projectid + "/" + qty);
+    const qty = this.state.quantity === "" ? 0 : parseInt(this.state.quantity);
     try {
       const config = {
         headers: { 
@@ -105,42 +77,64 @@ class HardwareSet extends React.Component {
         bodyParameters,
         config
       );
-      console.log(response);
-      if(response.status === 200) {
-        var checkedInVal = this.state.checkedOut - qty 
-        if(checkedInVal < 0) checkedInVal = 0;
-        this.setState({
-          checkedOut: checkedInVal
-        }) 
+      if (response.status === 200) {
+        // Call a method passed as prop from the parent component to update the parent's state
+        this.props.onHardwareChange(response.data.return_hw.hw_possessed, response.data.return_hw.hw_available);
       }
-      // unpack the response.data here to obtain the data needed
     } catch (error) {
       alert(error.response.data.message);
-      console.error('Error fetching project details:', error);
+      console.error('Error:', error);
     }
-    // alert(response.qty + " hardware checked in")
-  }
-
-  async makeCall(url) {
-    try {
-      const response = await axios.get("http://127.0.0.1:5000/" + url); 
-      console.log(response.data);
-      return response.data;
-    } catch(err) {
-      console.error(err);
-    }
-    return null;
-  }
-
-  toggle() {
-    this.setState({
-      disabled: !this.state.disabled
-    })
   }
 
   setQuantity(event) {
-    this.setState({quantity: event.target.value});
+    this.setState({ quantity: event.target.value });
+  }
+
+  render() {
+    return (
+      <div className="HWS">
+        <div className="project-details">
+          <div className="centered-text hardware-name">
+            {this.props.name}
+          </div>
+          <div className="centered-text hardware-data">
+            <div>Taken: {this.props.amount}</div>
+            <div>Available: {this.props.availability}</div>
+          </div>
+          <div className="hardware-inputs">
+            <div className="hw-box">
+              <TextField 
+                id="outlined-basic" 
+                label="Quantity" 
+                variant="outlined" 
+                value={this.state.quantity} 
+                onChange={this.setQuantity} 
+              />
+            </div>
+            <div className="hw-box">
+              <Button 
+                variant="contained" 
+                color="primary" 
+                onClick={this.checkOutHw}
+              >
+                Check Out
+              </Button>
+            </div>
+            <div className="hw-box">
+              <Button 
+                variant="contained" 
+                color="primary" 
+                onClick={this.checkInHw}
+              >
+                Check In
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 }
 
-export default HardwareSet
+export default HardwareSet;
