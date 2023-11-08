@@ -101,7 +101,7 @@ const UserProfilePage = () => {
                 </div>
             </div>
             <CreateProject modal={create} setModal={setCreate} onProjectCreate={handleProjectCreate} />
-            <JoinProject modal={join} setModal={setJoin} onProjectJoin={handleProjectJoin} />\
+            <JoinProject modal={join} setModal={setJoin} onProjectJoin={handleProjectJoin} />
         </div>
     );
 };
