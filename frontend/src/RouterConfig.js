@@ -4,7 +4,6 @@ import LoginPage from './Components/Login/LoginPage';
 import UserProfilePage from './Components/UserProfile/UserProfilePage';
 import ProjectDetails from './Components/ProjectDetails/ProjectDetails';
 import CreateProject from './Components/Modals/CreateProject';
-import Message from './Components/Modals/Message';
 import JoinProject from './Components/Modals/JoinProject';
 import RegisterPage from './Components/Register/RegisterPage';
 

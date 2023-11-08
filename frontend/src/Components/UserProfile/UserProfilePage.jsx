@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import CreateProject from '../Modals/CreateProject';
 import JoinProject from '../Modals/JoinProject';
-import Message from '../Modals/Message';
 
 const UserProfilePage = () => {
     const navigate = useNavigate();

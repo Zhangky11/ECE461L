@@ -1,0 +1,10 @@
+#!/bin/bash
+
+cd backend
+echo "starting server at " $PWD
+python3 run.py
+
+echo "Starting GUI program"
+cd ../frontend
+echo "starting frontend at " $PWD
+npm start
