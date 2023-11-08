@@ -114,8 +114,6 @@ const UserProfilePage = () => {
         <JoinProject modal={join}>Join Project modal</JoinProject>
         <Message modal={create} >Message modal</Message>
     </div>
-
-
   )
 }
 
