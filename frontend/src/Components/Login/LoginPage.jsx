@@ -2,26 +2,26 @@ import React, {useContext, useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './LoginPage.css'
-import { UserContext } from '../../App';
 
 
 // const LoginPage = ({ Login, error }) => {
 const LoginPage = () => {
-    const [user, setUser] = useContext(UserContext)
+    const [user, setUser] = useState('')
     const [details, setDetails] = useState({username: "", password: ""});
     const [error, setError] = useState('');
     const navigate = useNavigate();
-    console.log("login page")
     const LoginHandler = async (e) => {
         e.preventDefault();
         try {
             const apiEndpoint = "http://127.0.0.1:5000/auth/login";
             const response = await axios.post(apiEndpoint, details);
             if (response.status === 200) {
-                setUser(details.username)
+                // setUser(details.username)
                 const token = response.data.access_token;
-                localStorage.setItem('token', token);
+                localStorage.setItem('jwtToken', token);
+                console.log(token)
                 navigate('/profile');
+                return;
             } else {
                 setError(response.data.message);
             }
@@ -39,7 +39,7 @@ const LoginPage = () => {
             <div className='bar'>
                 <div className='bar-text'>ECE461L PROJECT</div>
             </div>
-            <div className='container'>
+            <div className='container1'>
                 <div className='header'>
                     <div className='text'>Login</div>
                 </div>

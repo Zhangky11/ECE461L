@@ -15,7 +15,6 @@ class User(db.Document):
     #email = db.EmailField()
     password_hash = db.StringField(required=True)
     joined_projects = ListField(ReferenceField(Project), default=list)
-    
 
     #pets = db.ReferenceField('Pet')
 

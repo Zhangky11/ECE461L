@@ -4,7 +4,9 @@ from mongoengine import Document, ReferenceField,ListField
 from backend import db
 
 class HwSet(db.Document):
-    hw_name = db.StringField(required=True, unique=True)   
+    username = db.StringField(required=True)
+    project_id = db.StringField(required=True)
+    hw_name = db.StringField(required=True)   
     hw_amount = db.IntField(required=True)
     hardware_from_pool = ReferenceField(HardwarePool)
 
@@ -13,11 +15,16 @@ class HwSet(db.Document):
         self.save()
     
     def return_hardware(self, amount):
-        if (self.hw_amount - amount < 0):
-            return False
-        else:
-            self.hw_amount -= amount
+        if int(amount) > self.hw_amount:
+            return False   
+        else:  
+            self.hw_amount -= int(amount)
             self.save()
             return True
-        
+    
+    def get_totalamount(self):
+        return self.hw_amount 
+    
+    def get_name(self):
+        return self.hw_name   
     
