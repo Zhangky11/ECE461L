@@ -13,7 +13,7 @@ from backend import db
 class Project(db.Document):
     id_inc = db.StringField(unique=True,required=True)   
     # id_inc = db.IntField()
-    name = db.StringField(unique=True,required=True)   
+    name = db.StringField(required=True)   
     description = db.StringField(required=True)
     member_list = db.ListField()
     joined_hwsets = ListField(ReferenceField(HwSet), default=list)

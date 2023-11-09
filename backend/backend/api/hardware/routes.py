@@ -73,18 +73,24 @@ def return_hw():
     
     hw_from_pool = HardwarePool.objects(name=data['hw_name']).first()
     
-    if hw_from_pool.return_hardware(data['hw_amount']):
-        if data['hw_name'] == "HW 1":
+   # if hw_from_pool.return_hardware(data['hw_amount']):
+    #    if data['hw_name'] == "HW 1":
+     #       hardware = project.joined_hwsets[0]
+     #   elif data['hw_name'] == "HW 2":
+     #       hardware = project.joined_hwsets[1]
+     #   else:
+     #       return jsonify({"message": "HW doesn't exists"}), 400
+     #   hardware.return_hardware(data['hw_amount'])
+     #   hardware.save()
+    if data['hw_name'] == "HW 1":
             hardware = project.joined_hwsets[0]
-        elif data['hw_name'] == "HW 2":
+    elif data['hw_name'] == "HW 2":
             hardware = project.joined_hwsets[1]
-        else:
-            return jsonify({"message": "HW doesn't exists"}), 400
-        hardware.return_hardware(data['hw_amount'])
-        hardware.save()
-    else:
+    if not hardware.return_hardware(data['hw_amount']):
+        return jsonify({"message": "Can't return hardware you haven't checked out"}), 400
+    if not hw_from_pool.return_hardware(data['hw_amount']):
         return jsonify({"message": "Not enough HW!"}), 400
-
+    hardware.save()
     # if not hardware1.return_hardware(data['hw_amount']):
     #     return jsonify({"message": "Incorrect return hardware amount!"}), 400
     # if not hw_from_pool.return_hardware(data['hw_amount']):
