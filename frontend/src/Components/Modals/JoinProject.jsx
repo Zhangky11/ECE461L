@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './Modal.css';
+import { backendEndpoint } from '../../App';
 
 const JoinProject = ({ modal, setModal, onProjectJoin }) => {
     const [projectId, setProjectId] = useState('');
@@ -19,7 +20,7 @@ const JoinProject = ({ modal, setModal, onProjectJoin }) => {
 
         try {
             const response = await axios.post(
-                'http://127.0.0.1:5000/api/project/join_proj',
+                backendEndpoint + "/api/project/join_proj", 
                 bodyParameters,
                 config
             );

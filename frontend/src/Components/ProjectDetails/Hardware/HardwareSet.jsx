@@ -6,6 +6,7 @@ import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { backendEndpoint } from '../../../App';
 
 class HardwareSet extends React.Component {
   constructor(props) {
@@ -44,7 +45,7 @@ class HardwareSet extends React.Component {
         amount: qty
       };
       const response = await axios.post(
-        'http://127.0.0.1:5000/api/hardware/request_hw',
+        backendEndpoint + "/api/hardware/request_hw",
         bodyParameters,
         config
       );
@@ -73,7 +74,7 @@ class HardwareSet extends React.Component {
         amount: qty
       };
       const response = await axios.post(
-        'http://127.0.0.1:5000/api/hardware/return_hw',
+        backendEndpoint + "/api/hardware/return_hw",
         bodyParameters,
         config
       );

@@ -30,6 +30,9 @@ const CreateProject = ({ modal, setModal, onProjectCreate }) => {
             // If the request is successful, call the onProjectCreate callback
             if (response.status === 200) {
                 onProjectCreate();
+                setProjectId('');
+                setProjectName('');
+                setProjectDescription('');
                 setModal(false); // Close the modal
             } else {
                 // Non-200 status code, clear input fields and show error

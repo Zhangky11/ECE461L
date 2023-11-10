@@ -6,25 +6,20 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import RouterConfig from './RouterConfig';
 
 export const UserContext = createContext();
+const backendEndpoint = 'http://127.0.0.1:5000';
 
 function App() {
 
 
 
   return (
-    // <div>
-    //   {(user.username != "") ? (
-    //     <UserProfilePage username={user.username} Logout={Logout}/>
-    //   ) : (
-    //     <LoginPage Login={Login} error={error}/>
-    //   )}
-    // </div>
-
       <Router>
         <RouterConfig />
       </Router>
 
   );
 }
+
+export { backendEndpoint };
 
 export default App;

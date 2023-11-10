@@ -5,6 +5,7 @@ import axios from 'axios';
 import CreateProject from '../Modals/CreateProject';
 import JoinProject from '../Modals/JoinProject';
 import Message from '../Modals/Message';
+import { backendEndpoint } from '../../App';
 
 const UserProfilePage = () => {
     const navigate = useNavigate();
@@ -26,7 +27,7 @@ const UserProfilePage = () => {
         }
 
         try {
-            const response = await axios.post('http://127.0.0.1:5000/auth/return_user/', {}, {
+            const response = await axios.post(backendEndpoint + "/auth/return_user/", {}, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

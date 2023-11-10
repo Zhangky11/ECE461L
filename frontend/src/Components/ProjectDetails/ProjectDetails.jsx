@@ -5,6 +5,7 @@ import axios from 'axios';
 import HardwareSet from './Hardware/HardwareSet'
 import './ProjectDetails.css'
 import { UserContext } from '../../App';
+import { backendEndpoint } from '../../App';
 
 
 const ProjectDetails = () => {
@@ -42,7 +43,7 @@ const ProjectDetails = () => {
 
       try {
         const response = await axios.post(
-          'http://127.0.0.1:5000/api/project/display_proj',
+          backendEndpoint + "/api/project/display_proj",
           bodyParameters,
           config
         );

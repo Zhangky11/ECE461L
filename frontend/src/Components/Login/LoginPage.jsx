@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './LoginPage.css'
-
+import { backendEndpoint } from '../../App';
 
 // const LoginPage = ({ Login, error }) => {
 const LoginPage = () => {
@@ -13,7 +13,7 @@ const LoginPage = () => {
     const LoginHandler = async (e) => {
         e.preventDefault();
         try {
-            const apiEndpoint = "http://127.0.0.1:5000/auth/login";
+            const apiEndpoint = backendEndpoint + "/auth/login";
             const response = await axios.post(apiEndpoint, details);
             if (response.status === 200) {
                 // setUser(details.username)
