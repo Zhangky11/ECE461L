@@ -1,3 +1,4 @@
+from xmlrpc.client import TRANSPORT_ERROR
 from flask import Flask
 from backend import app
 from backend.auth.model import User
@@ -21,4 +22,5 @@ if __name__ == "__main__":
     User.objects().delete()
     Project.objects().delete()
     HwSet.objects().delete()
-    app.run(debug=True, host='0.0.0.0', port=os.environ.get('PORT', 5000))
+    app.run(debug=True)
+    #app.run(debug=True, host='0.0.0.0', port=os.environ.get('PORT', 80))
