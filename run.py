@@ -12,8 +12,6 @@ app = Flask(__name__, static_folder='frontend/build', static_url_path='/')
 def index():
     return app.send_static_file('index.html')
 
-app.send_static_file('index.html')
-
 if __name__ == "__main__":
     HardwarePool.objects().delete()
     hwpool1 = HardwarePool(name="HW 1", total_capacity=100, total_availability=100)
@@ -23,4 +21,4 @@ if __name__ == "__main__":
     User.objects().delete()
     Project.objects().delete()
     HwSet.objects().delete()
-    app.run(debug=True, host='0.0.0.0', port=os.environ.get('PORT', 80))
+    app.run(debug=True, host='0.0.0.0', port=os.environ.get('PORT', 5000))
