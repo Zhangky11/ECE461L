@@ -15,6 +15,12 @@ const ProjectDetails = () => {
   const [description, setDescription] = useState("");
   const [members, setMembers] = useState([]);
   const [HWSets, setHWSets] = useState(null); // Initialize to null to check if data has loaded
+  const navigate = useNavigate();
+
+  const backHandler = (e) => {
+    e.preventDefault();
+    navigate('/profile');
+  }
 
   const handleHardwareChange = (hardwareName, newAmount, newAvailability) => {
     setHWSets(currentHWSets => {
@@ -65,7 +71,11 @@ const ProjectDetails = () => {
               <div className='username'>{username}</div>
           </div>
           <div className='project-container'>
-              <div className='text'>{name}</div>
+              <div><button className='backButton' onClick={backHandler}>&lt;</button></div>
+              <div className='project-name-container'>
+                  
+                  <div className='project-text'>{name}</div>
+              </div>
               <div className='project-body'>
                   <div className='projectFeature'>
                       <b>Description: </b> {description}
@@ -80,7 +90,7 @@ const ProjectDetails = () => {
                   </div>
               </div>
               <br/>
-              <div className='text'>Hardware Sets</div>
+              <div className='project-text'>Hardware Sets</div>
               <div className='project-body'>
                   <div className='hardware-area'>
                       {/* Conditional rendering based on HWSets */}

@@ -76,7 +76,11 @@ const UserProfilePage = () => {
                 <div className='username'>{user}</div>
             </div>
             <div className='project-table-container1'>
-                <div className='project-table-header'>Your Projects</div>
+                <div className='project-table-header'>
+                    Your Projects
+                    <div className='text3'>Click on an entry for more details</div>
+                </div>
+                
                 <div className='table-container'>
                     <table className='project-table'>
                         <thead>
@@ -96,7 +100,6 @@ const UserProfilePage = () => {
                     </table>
                 </div>
                 <div className='button-container1'>
-                    <button className='button' onClick={() => setMessage(true)}>Message Test</button>
                     <button className='button' onClick={() => setJoin(true)}>Join</button>
                     <button className='button' onClick={() => setCreate(true)}>Create</button>
                     <button className='button' onClick={logoutHandler}>Logout</button>
