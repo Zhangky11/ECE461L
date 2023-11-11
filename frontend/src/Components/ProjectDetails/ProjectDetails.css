@@ -120,3 +120,24 @@
     margin:auto;
 }
 
+
+.project-name-container {
+    display: flex;
+    justify-content: center; /* Center the items horizontally */
+    align-items: center; /* Center the items vertically */
+    text-align: left; /* Align text to the left within the container */
+}
+.project-text {
+    text-align: center; /* Center the text within this element */
+    margin: 0 auto;
+    color: #242424;
+    font-size: 36px;
+    font-family: 'Inter';
+    font-weight: 500;
+}
+
+.backButton {
+    margin-left: 1vw;
+    background: #d6e8fc;
+    padding: 1vh 1vw;
+}
