@@ -6,7 +6,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import RouterConfig from './RouterConfig';
 
 export const UserContext = createContext();
-const backendEndpoint = 'http://127.0.0.1:5000';
+const backendEndpoint = 'https://ece461l-something-39e3a26d7e75.herokuapp.com/';
 
 function App() {
 
