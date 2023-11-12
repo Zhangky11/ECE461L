@@ -49,7 +49,6 @@ pyOpenSSL==23.2.0
 pyparsing==2.4.7
 pytest==7.4.3
 pytest-check==2.2.2
-python-apt==2.4.0+ubuntu2
 python-dateutil==2.8.2
 python-snappy==0.6.1
 PyYAML==5.4.1
