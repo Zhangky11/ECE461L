@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, send_from_directory
 from backend import app
 from backend.auth.model import User
 from backend.api.project.model import Project
@@ -10,7 +10,7 @@ app = Flask(__name__, static_folder='', static_url_path='/frontend/build')
 
 @app.route('/', methods=["GET"])
 def index():
-    return app.send_static_file('/frontend/build/index.html')
+    return app.send_from_directory('/frontend/build/', 'index.html')
 
 if __name__ == "__main__":
     HardwarePool.objects().delete()
