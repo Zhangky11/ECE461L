@@ -58,7 +58,6 @@ service-identity==23.1.0
 six==1.16.0
 systemd-python==234
 tomli==2.0.1
-ubuntu-advantage-tools==8001
 ufw==0.36.1
 unattended-upgrades==0.1
 urllib3==2.0.6
