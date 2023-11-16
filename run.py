@@ -6,7 +6,7 @@ from backend.api.hardware.model import HwSet
 from backend.shared.hardware_pool import HardwarePool
 import os
 
-app = Flask(__name__, static_folder='', static_url_path='frontend/build')
+app = Flask(__name__, static_folder='', static_url_path='/frontend/build')
 
 @app.route('/', methods=["GET"])
 def index():
