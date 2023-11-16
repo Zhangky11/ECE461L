@@ -1,4 +1,4 @@
-import Flask
+from flask import Flask
 from backend import app
 from backend.auth.model import User
 from backend.api.project.model import Project
