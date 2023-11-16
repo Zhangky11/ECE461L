@@ -1,4 +1,4 @@
-import flask
+import Flask
 from backend import app
 from backend.auth.model import User
 from backend.api.project.model import Project
@@ -6,7 +6,7 @@ from backend.api.hardware.model import HwSet
 from backend.shared.hardware_pool import HardwarePool
 import os
 
-app = flask(__name__, static_folder='./frontend/build', static_url_path='/')
+app = Flask(__name__, static_folder='./frontend/build', static_url_path='/')
 
 @app.route('/', methods=["GET"])
 def index():
