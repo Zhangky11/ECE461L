@@ -10,7 +10,7 @@ app = Flask(__name__, static_folder='', static_url_path='/frontend/build')
 
 @app.route('/', methods=["GET"])
 def index():
-    return app.send_static_file('index.html')
+    return app.send_static_file('/frontend/build/index.html')
 
 if __name__ == "__main__":
     HardwarePool.objects().delete()
