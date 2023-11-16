@@ -12,10 +12,6 @@ app = Flask(__name__, static_folder='./frontend/build', static_url_path='/')
 def index():
     return app.send_static_file('index.html')
 
-@app.errorhandler()
-def not_found(e):
-    return
-
 app.send_static_file('index.html')
 
 if __name__ == "__main__":
